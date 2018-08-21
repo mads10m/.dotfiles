@@ -29,15 +29,23 @@ WARNING_MESSAGE="${COLOR_RED}WARNING:${COLOR_RESET}"
 # Backing up files
 echo -e "${COLOR_GREEN}backing up the config files${COLOR_RESET}"
 for i in "${DOTFILES_LIST[@]}"; do
-  echo "backing up $i"
-  cp -f $HOME/$i $BACKUPS_DIR
+  # Test if file exist
+  if [ -f ~/$i ]
+  then
+    # File exist
+    echo "backing up $i"
+    cp -f $HOME/$i $BACKUPS_DIR
+  else
+    # File doesn't exist
+    echo -e "${COLOR_RED}${i} does not already exist!${COLOR_RESET}"
+  fi
 done
 
 # Making the symbolic link
 echo -e "${COLOR_GREEN}making symbolic links${COLOR_RESET}"
 for i in "${DOTFILES_LIST[@]}"; do
   echo -n "made a symbolic link for $i "
-  ln -sfv $CONFIG_FILES_DIR/$i ~
+  ln -sfv $CONFIG_FILES_DIR/$i ~/$i
 done
 
 # Downloading the scripts repo
