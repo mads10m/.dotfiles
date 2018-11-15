@@ -11,8 +11,9 @@ CONFIG_FILES_DIR="$DOTFILES_DIR/config-files"
 
 # List of dotfiles
 DOTFILES_LIST=(
-  ".bashrc"
   ".bash_aliases"
+  ".bashrc"
+  ".tmux.conf"
   ".vimrc"
 )
 
