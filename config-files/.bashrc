@@ -145,3 +145,6 @@ fi
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   exec stmux
 fi
+
+# enable control-s and control-q
+stty -ixon
