@@ -28,9 +28,18 @@ vnoremap <silent> <c-s> <Esc>:w<CR>
 " Macros
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd BufWritePost *.tex call MyLatex()
+"augroup filetypedetect
+	"au! BufNewFile,BufRead *.tex <buffer> MyLatex()
+"augroup END
+
+autocmd Filetype tex call MyLatex()
+
+" au! BufNewFile,BufRead *.tex <buffer> MyLatex()
+" autocmd filetype tex nnoremap <Space><Space> /<++><CR>ciw
+" autocmd FileType tex call MyLatex()
+" call MyLatex()
 function! MyLatex()
-	nnoremap <F6> /<++><CR>ciw
+	nnoremap <buffer> <Space><Space> /<++>/:<CR>ciw
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -42,11 +51,11 @@ call plug#begin('~/.vim/plugged')
 	" Declare the list of plugins.
 	Plug 'scrooloose/nerdtree'
 	Plug 'airblade/vim-gitgutter'
-	Plug 'vim-syntastic/syntastic'
+	"Plug 'vim-syntastic/syntastic'
 	Plug 'tpope/vim-surround'
 	Plug 'pangloss/vim-javascript'
 	"Plug 'w0rp/ale'
-	Plug 'Valloric/YouCompleteMe'
+	"Plug 'Valloric/YouCompleteMe'
 	Plug 'junegunn/goyo.vim'
 	Plug 'junegunn/limelight.vim'
 
@@ -66,14 +75,14 @@ augroup javascript_folding
 augroup END
 
 " syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
 
 function! s:goyo_enter()
