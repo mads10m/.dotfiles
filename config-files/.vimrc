@@ -58,11 +58,16 @@ endfunction
 " For latex files 
 autocmd Filetype tex call MyLatex()
 function! MyLatex()
-	map <F7> :w<CR>:silent !compile-latex %<CR>
+	"map <F7> :w<CR>:silent !compile-latex %<CR>
 
-	nnoremap <buffer> <Space><Space> /<++>/:<CR>ciw
+	map <C-j> /<++><CR>cf>
+	inoremap <C-j> <Esc>/<++><CR>cf>
 	" compile latex
 	" map <buffer> <F5> :! compile-latex expand('%:t')<CR> 
+	
+	" List
+	inoremap ,pl \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
+	inoremap ,nl \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
 endfunction
 
 
@@ -136,10 +141,6 @@ let g:limelight_conceal_guifg = '#777777'
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
-augroup javascript_folding
-	au!
-	au FileType javascript setlocal foldmethod=syntax
-augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Latex
