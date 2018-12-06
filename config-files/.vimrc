@@ -26,7 +26,7 @@ set shiftwidth=4
 " Enable autocompletion:
 set wildmode=longest,list,full
 
-
+set splitbelow splitright
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts
@@ -36,6 +36,7 @@ set wildmode=longest,list,full
 vnoremap <C-c> "+y
 map <C-v> "+p
 inoremap <C-v> <C-r>+ 
+vnoremap <C-x> "+d
 
 " quick save
 nnoremap <silent> <C-s> :update<CR>
@@ -57,9 +58,7 @@ endfunction
 " For latex files 
 autocmd Filetype tex call MyLatex()
 function! MyLatex()
-	" set updatetime to a smaller value, which is the frequency that the
-	" output PDF is updated
-	Setl updatetime=1
+	map <F7> :w<CR>:silent !compile-latex %<CR>
 
 	nnoremap <buffer> <Space><Space> /<++>/:<CR>ciw
 	" compile latex
@@ -148,5 +147,8 @@ augroup END
 
 " vim-latex-live-preview
 let g:livepreview_previewer = 'evince'
+" set updatetime to a smaller value, which is the frequency that the
+" output PDF is updated
+"Setl updatetime=1
 
 
