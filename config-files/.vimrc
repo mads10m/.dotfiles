@@ -28,14 +28,28 @@ set wildmode=longest,list,full
 
 set splitbelow splitright
 
+" Auto resice windows
+autocmd VimResized * wincmd =
+
+" my filetype file
+"if exists("did_load_filetypes")
+    "finish
+"endif
+"augroup filetypedetect
+    "au! BufRead,BufNewFile *.hjs setfiletype html
+"augroup END
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Fix indentation
+map <F7> mzgg=G`z
+
 " copy and paste to clibbord
 vnoremap <C-c> "+y
 map <C-v> "+p
-inoremap <C-v> <C-r>+ 
+inoremap <C-v> <C-r>+
 vnoremap <C-x> "+d
 
 " quick save
@@ -55,21 +69,30 @@ function! MyVim()
 	map <F5> :source ~/.vimrc<CR>
 endfunction
 
-" For latex files 
+" For latex files
 autocmd Filetype tex call MyLatex()
 function! MyLatex()
 	"map <F7> :w<CR>:silent !compile-latex %<CR>
 
-	map <C-j> /<++><CR>cf>
-	inoremap <C-j> <Esc>/<++><CR>cf>
 	" compile latex
-	" map <buffer> <F5> :! compile-latex expand('%:t')<CR> 
+	" map <buffer> <F5> :! compile-latex expand('%:t')<CR>
+	
+	" Snippets
 	
 	" List
 	inoremap ,pl \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
 	inoremap ,nl \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
 endfunction
 
+map <C-j> /<++><CR>cf>
+inoremap <C-j> <Esc>/<++><CR>cf>
+
+inoremap " ""<++><Esc>?"<CR>i
+inoremap ' ''<++><Esc>?'<CR>i
+inoremap ( ()<++><Esc>?)<CR>i
+inoremap [ []<++><Esc>?]<CR>i
+inoremap { {}<++><Esc>?}<CR>i
+inoremap < <><++><Esc>?><CR>i
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -79,13 +102,20 @@ endfunction
 call plug#begin('~/.vim/plugged')
 	" vim
 	Plug 'scrooloose/nerdtree'
+	Plug 'w0rp/ale'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-surround'
 	Plug 'junegunn/goyo.vim'
 	Plug 'junegunn/limelight.vim'
+	Plug 'joshdick/onedark.viM'
 
 	" javascript
 	Plug 'pangloss/vim-javascript'
+	
+	" markdown
+	Plug 'shime/vim-livedown'
 
 	" latex
 	Plug 'xuhdev/vim-latex-live-preview'
@@ -99,6 +129,25 @@ call plug#end()
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
+
+" Ale
+let g:ale_fixers = {
+\	'*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier', 'eslint'],
+\} 
+
+let g:ale_open_list = 1
+let g:ale_lint_on_save = 1
+let g:ale_echo_cursor = 0
+
+" Onedark
+colorscheme onedark
+
+" Airline
+let g:lightline = {
+\ 'colorscheme': 'onedark',
+\ }
+
 
 " Goyo and Limelight
 map <F4> :Goyo<CR>
@@ -133,6 +182,11 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Color name (:help gui-colors) or RGB color
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
+
+" Onedark colorschee
+"g:onedark_termcolors
+"let g:onedark_termcolors=256
+"colorscheme onedark
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Javascript
