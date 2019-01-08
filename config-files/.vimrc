@@ -76,11 +76,11 @@ call plug#end()
 	map <F6>e :setlocal spell spelllang=en_us<CR>
 	map <F6>d :setlocal spell spelllang=da<CR>
 " For vim files
+	autocmd Filetype vim call MyVim()
 	function! MyVim()
 		map <F5> :source ~/.vimrc<CR>
 	endfunction
-	
-	" For latex files
+" For latex files
 	autocmd Filetype tex call MyLatex()
 	function! MyLatex()
 		"map <F7> :w<CR>:silent !compile-latex %<CR>
@@ -88,9 +88,18 @@ call plug#end()
 		" map <buffer> <F5> :! compile-latex expand('%:t')<CR>
 		" Snippets
 		" List
-		inoremap ,pl \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
-		inoremap ,nl \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
+		"inoremap ,pl \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
+		"inoremap ,nl \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
+		map <C-j> /<++><CR>cf>
+		inoremap <C-j> <Esc>/<++><CR>cf>
+		" Documentclass
+		inoremap ,dc \documentclass[]{<++>}<Enter><++><Esc>?[]<CR>a
+		" Usepackage
+		inoremap ,up \usepackage{}<Enter><++><Esc>?{}<CR>a
+		" Begin document
+		inoremap ,bd \begin{document}<Enter><Enter><Enter><Enter>\end{document}<Esc>2ki
 	endfunction
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin settings
@@ -126,7 +135,7 @@ call plug#end()
 	function! s:goyo_enter()
 		silent !tmux set status off
 		silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-		" Changes folding color 
+		" Changes folding color
 		highlight Folded ctermbg=242 ctermfg=White
 		set noshowmode
 		set noshowcmd
@@ -137,7 +146,7 @@ call plug#end()
 	function! s:goyo_leave()
 		silent !tmux set status on
 		silent !tmux list-panes -F '\#F' | grep -q Z && tmux
-		" Changes folding color 
+		" Changes folding color
 		highlight Folded ctermbg=242 ctermfg=White
 		resize-pane -Z
 		set showmode
@@ -158,3 +167,4 @@ call plug#end()
 	" set updatetime to a smaller value, which is the frequency that the
 	" output PDF is updated
 	"Setl updatetime=1
+	let g:tex_flavor = "latex"
