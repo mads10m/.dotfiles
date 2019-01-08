@@ -21,7 +21,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'shime/vim-livedown'
 
 	" latex
-	Plug 'mads10m/vim-mylatex'
 	Plug 'xuhdev/vim-latex-live-preview'
 call plug#end()
 
