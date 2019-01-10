@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-surround'
 
 	" Style
-	Plug 'joshdick/onedark.viM'
+	Plug 'joshdick/onedark.vim'
 	Plug 'junegunn/goyo.vim'
 	Plug 'junegunn/limelight.vim'
 
@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'shime/vim-livedown'
 
 	" latex
+	Plug 'mads10m/vim-template'
 	Plug 'xuhdev/vim-latex-live-preview'
 call plug#end()
 
