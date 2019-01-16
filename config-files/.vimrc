@@ -67,6 +67,8 @@ call plug#end()
 	nnoremap <silent> <C-s> :update<CR>
 	inoremap <silent> <C-s> <Esc>:update<CR>i
 	vnoremap <silent> <c-s> <Esc>:w<CR>
+" Fix indentation
+	map <F7> mzgg=G`z
 " Copy and paste to clipboard
 	vnoremap <C-c> "+y
 	map <C-v> "+p
