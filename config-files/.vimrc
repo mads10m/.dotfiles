@@ -101,7 +101,7 @@ call plug#end()
 		inoremap ,up \usepackage{}<Enter><++><Esc>?{}<CR>a
 		" Begin document
 		inoremap ,bd \begin{document}<Enter><Enter><Enter><Enter>\end{document}<Esc>2ki
-		
+
 		inoremap ,chap \chapter{}<Enter><++><Esc>?{}<CR>a
 		inoremap ,sec \section{}<Enter><++><Esc>?{}<CR>a
 		inoremap ,ssec \subsection{}<Enter><++><Esc>?{}<CR>a
