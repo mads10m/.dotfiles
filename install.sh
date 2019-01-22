@@ -13,6 +13,7 @@ CONFIG_FILES_DIR="$DOTFILES_DIR/config-files"
 DOTFILES_LIST=(
   ".bash_aliases"
   ".bashrc"
+  ".profile"
   ".tmux.conf"
   ".vimrc"
 )
