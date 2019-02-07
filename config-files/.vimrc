@@ -4,10 +4,14 @@
 call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
 	Plug 'w0rp/ale'
+	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --ts-completer --java-completer' }
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-surround'
+
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
 
 	" Style
 	Plug 'joshdick/onedark.vim'
@@ -130,6 +134,20 @@ call plug#end()
 	let g:ale_open_list = 1
 	let g:ale_lint_on_save = 1
 	let g:ale_echo_cursor = 0
+" Youcompleteme
+	let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+	let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+	let g:SuperTabDefaultCompletionType = '<C-n>'
+" Ultisnips
+	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+	let g:UltiSnipsExpandTrigger="<tab>"
+	let g:UltiSnipsJumpForwardTrigger="<tab>"
+	let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+	" If you want :UltiSnipsEdit to split your window.
+	let g:UltiSnipsEditSplit="vertical"
+
+	let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/my-snippets']
 " Onedark
 	colorscheme onedark
 	highlight Folded ctermbg=242 ctermfg=White
