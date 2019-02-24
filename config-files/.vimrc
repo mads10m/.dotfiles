@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-surround'
 
 	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
 
 	" Style
 	Plug 'joshdick/onedark.vim'
@@ -87,37 +86,6 @@ call plug#end()
 	function! MyVim()
 		map <F5> :source ~/.vimrc<CR>
 	endfunction
-" For latex files
-	autocmd Filetype tex call MyLatex()
-	function! MyLatex()
-		"map <F7> :w<CR>:silent !compile-latex %<CR>
-		" compile latex
-		" map <buffer> <F5> :! compile-latex expand('%:t')<CR>
-		" Snippets
-		" List
-		"inoremap ,pl \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
-		"inoremap ,nl \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
-		map <C-j> /<++><CR>cf>
-		inoremap <C-j> <Esc>/<++><CR>cf>
-		" Documentclass
-		inoremap ,dc \documentclass[]{<++>}<Enter><++><Esc>?[]<CR>a
-		" Usepackage
-		inoremap ,up \usepackage{}<Enter><++><Esc>?{}<CR>a
-		" Begin document
-		inoremap ,bd \begin{document}<Enter><Enter><Enter><Enter>\end{document}<Esc>2ki
-
-		inoremap ,chap \chapter{}<Enter><++><Esc>?{}<CR>a
-		inoremap ,sec \section{}<Enter><++><Esc>?{}<CR>a
-		inoremap ,ssec \subsection{}<Enter><++><Esc>?{}<CR>a
-		inoremap ,sssec \subsubsection{}<Enter><++><Esc>?{}<CR>a
-
-		inoremap ,ic \includegraphics[width=\textwidth]{}<Enter><++><Esc>?{}<CR>a
-
-		inoremap ,be \begin{equation}<Enter>\end{equation}<Esc>O
-
-
-	endfunction
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin settings
@@ -142,7 +110,7 @@ call plug#end()
 	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 	let g:UltiSnipsExpandTrigger="<tab>"
 	let g:UltiSnipsJumpForwardTrigger="<tab>"
-	let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+	let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 	" If you want :UltiSnipsEdit to split your window.
 	let g:UltiSnipsEditSplit="vertical"
