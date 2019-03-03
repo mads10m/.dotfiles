@@ -55,6 +55,11 @@ call plug#end()
 	set foldnestmax=10
 	set nofoldenable
 	set foldlevel=2
+" Searching
+	set hlsearch
+	set incsearch
+	"autocmd InsertEnter * :let @/=""
+	nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -134,7 +139,7 @@ call plug#end()
 	" Goyo start
 	function! s:goyo_enter()
 		silent !tmux set status off
-		silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+
 		" Changes folding color
 		highlight Folded ctermbg=242 ctermfg=White
 		set noshowmode
