@@ -60,6 +60,19 @@ call plug#end()
 	set incsearch
 	"autocmd InsertEnter * :let @/=""
 	nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+" Change scroll
+	map <F2> :call ScrollToggle()<cr>
+	set scrolloff=5
+	let s:mappingsScrolloff=1
+	function! ScrollToggle()
+		if s:mappingsScrolloff
+			set scrolloff=5
+		else
+			set scrolloff=999
+		endif
+
+		let s:mappingsScrolloff = !s:mappingsScrolloff
+	endfunction
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -122,9 +135,10 @@ call plug#end()
 
 	let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/my-snippets']
 " Onedark
-	colorscheme onedark
 	highlight Folded ctermbg=242 ctermfg=White
+	colorscheme onedark
 " Airline
+	let g:airline_theme = 'onedark'
 	let g:lightline = {
 	\ 'colorscheme': 'onedark',
 	\ }
