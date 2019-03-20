@@ -17,6 +17,9 @@ call plug#begin('~/.vim/plugged')
 	Plug 'junegunn/goyo.vim'
 	Plug 'junegunn/limelight.vim'
 
+	" tmux
+	Plug 'christoomey/vim-tmux-navigator'
+
 	" javascript
 	Plug 'pangloss/vim-javascript'
 
