@@ -119,6 +119,8 @@ call plug#end()
 	let g:ale_fixers = {
 	\	'*': ['remove_trailing_lines', 'trim_whitespace'],
 	\	'javascript': ['prettier', 'eslint'],
+	\	'python': ['pylint', 'flake8'],
+	\	'latex': ['chktex'],
 	\}
 	let g:ale_open_list = 1
 	let g:ale_lint_on_save = 1
