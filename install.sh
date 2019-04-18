@@ -56,14 +56,24 @@ if [ -d "$SCRIPTS_DIR" ]; then
 	echo -e "$WARNING_MESSAGE $HOME/.scripts does already exist"
 else
 	echo -e "${COLOR_GREEN}cloning scripts${COLOR_RESET}"
-	git clone https://github.com/mads10m/.scripts.git ~/.scripts
+	git clone git@github.com:mads10m/.scripts.git ~/.scripts
 fi
 
-# Donloading the .vim repo
+# Downloading the .vim repo
 VIM_DIR="$HOME/.vim"
 if [ -d "$VIM_DIR" ]; then
 	echo -e "$WARNING_MESSAGE $HOME/.vim does already exist"
 else
 	echo -e "${COLOR_GREEN}Cloning .vim${COLOR_RESET}"
-	git clone https://github.com/mads10m/.vim.git ~/.vim
+	git clone git@github.com:mads10m/.vim.git ~/.vim
+fi
+
+# Downloading the .fzf repo
+FZF_DIR="$HOME/.fzf"
+if [ -d "FZF_DIR" ]; then
+	echo -e "$WARNING_MESSAGE $HOME/.zfz does already exist"
+else
+	echo -e "${COLOR_GREEN}Cloning .vim${COLOR_RESET}"
+	git clone --depth 1 git@github.com:junegunn/fzf.git ~/.fzf
+	~/.fzf/install
 fi
