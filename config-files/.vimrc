@@ -9,6 +9,9 @@ call plug#begin('~/.vim/plugged')
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'tpope/vim-surround'
+	"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug '~/.fzf'
+	Plug 'junegunn/fzf.vim'
 
 	Plug 'SirVer/ultisnips'
 
@@ -147,6 +150,11 @@ call plug#end()
 	let g:lightline = {
 	\ 'colorscheme': 'onedark',
 	\ }
+" FZF
+	let g:fzf_action = {
+  	\ 'ctrl-t': 'tab split',
+  	\ 'ctrl-x': 'split',
+  	\ 'ctrl-v': 'vsplit' }
 " Goyo and Limelight
 	" Shortcuts
 	map <F4> :Goyo<CR>
