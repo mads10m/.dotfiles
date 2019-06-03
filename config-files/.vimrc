@@ -26,6 +26,9 @@ call plug#begin('~/.vim/plugged')
 	" javascript
 	Plug 'pangloss/vim-javascript'
 
+	" typescript
+	Plug 'leafgarland/typescript-vim'
+
 	" markdown
 	Plug 'shime/vim-livedown'
 
