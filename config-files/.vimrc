@@ -59,12 +59,16 @@ set shiftwidth=4				" How many columns text will be indented when
 
 " }}}
 " Vim directories {{{
+silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
+								" Create dir for backup, swap and indo file
+set backup
 set backupdir=~/.vim/.backup//	" Backup directory
 
+set swapfile
 set directory=~/.vim/.swp//		" Swap directory
 
-set undodir=~/.vim/.undo//		" Undo directory
 set undofile					" Save undo file after file closes
+set undodir=~/.vim/.undo//		" Undo directory
 set undolevels=1000				" How many undoes
 set undoreload=10000			" Number of lines to save for undo
 " }}}
