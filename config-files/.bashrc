@@ -142,8 +142,12 @@ if ! shopt -oq posix; then
 fi
 
 # open tmux instead of normal terminal
+# test if (1) tmux exists on the system, (2) we're in an interactive shell, and (3) tmux doesn't try to run within itself
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec stmux
+  # opens tmux if not open, else open normal terminal
+  if [[ ! $(tmux ls | grep "main") =~ \(attached\)$ ]]; then
+  	exec stmux
+  fi
 fi
 
 # enable control-s and control-q
