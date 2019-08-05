@@ -22,6 +22,7 @@ call plug#begin('~/.vim/plugged')
 
 	" Style
 	Plug 'joshdick/onedark.vim'
+	Plug 'ap/vim-css-color'
 	Plug 'junegunn/goyo.vim'
 	Plug 'junegunn/limelight.vim'
 
@@ -38,6 +39,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'shime/vim-livedown'
 
 	" latex
+	Plug 'lervag/vimtex'
 	Plug 'mads10m/vim-template'
 	Plug 'xuhdev/vim-latex-live-preview'
 call plug#end()
@@ -87,17 +89,22 @@ nnoremap <silent> <Leader>s :update<CR>
 inoremap <silent> <Leader>s <Esc>:update<CR>i
 vnoremap <silent> <Leader>s <Esc>:w<CR>
 
-" spell check
+" Spell check
 map <F6><F6> :setlocal spell!<CR>
 map <F6>e :setlocal spell spelllang=en_us<CR>
 map <F6>d :setlocal spell spelllang=da<CR>
 
-" copy and paste to clibbord
+" Copy and paste to clipboard
 vnoremap <Leader>c "+y
 map <Leader>v "+p
 inoremap <Leader>v <C-r>+
 vnoremap <Leader>x "+d
 
+" Fix indentation
+map <F7> mzgg=G`z
+
+" Adding quit all command
+cnoreabbrev qq quitall
 
 " For vim files {{{
 autocmd Filetype vim call MyVim()
@@ -127,6 +134,8 @@ let g:ale_fixers = {
 let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
 let g:ale_echo_cursor = 0
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 0
 " }}}
 " Youcompleteme {{{
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -210,4 +219,9 @@ let g:livepreview_previewer = 'evince'
 "Setl updatetime=1
 let g:tex_flavor = "latex"
 " }}}
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=3
+let g:tex_conceal='abdmg'
 " }}}
