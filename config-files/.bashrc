@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=1000		# How many lines is saved
+HISTFILESIZE=2000	# How many lines there can be in the history file
 
 # test if .scripts is in PATH, if it is not then it adds it
 SCRIPT_DIR="$HOME/.scripts"
@@ -160,3 +160,6 @@ export NVM_DIR="$HOME/.nvm"
 # enable zfz
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_OPTS="--height 40% --extended --border"
+
+# disable 
+export DOTNET_CLI_TELEMETRY_OPTOUT=1

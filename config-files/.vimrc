@@ -32,6 +32,9 @@ call plug#begin('~/.vim/plugged')
 	" javascript
 	Plug 'pangloss/vim-javascript'
 
+	" csharp
+	Plug 'OmniSharp/omnisharp-vim'
+
 	" typescript
 	Plug 'leafgarland/typescript-vim'
 
@@ -123,6 +126,7 @@ let NERDTreeShowHidden=1
 let g:ale_fixers = {
 \	'*': ['remove_trailing_lines', 'trim_whitespace'],
 \	'javascript': ['prettier', 'eslint'],
+\	'cs': ['OmniSharp'],
 \	'python': ['pylint', 'flake8'],
 \	'latex': ['chktex'],
 \}
@@ -220,4 +224,8 @@ let g:livepreview_previewer = 'evince'
 let g:vimtex_quickfix_mode=0
 set conceallevel=3
 let g:tex_conceal='abdmg'
+" }}}
+" omnisharp-vim {{{
+let g:OmniSharp_server_use_mono = 1
+let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
 " }}}
