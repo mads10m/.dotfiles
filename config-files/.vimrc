@@ -59,10 +59,9 @@ set tabstop=4					" How many columns a tab is made out of
 set shiftwidth=4				" How many columns text will be indented when
 								" using indent operations (such as < or >)
 
-" }}}
-" Vim directories {{{
+" Vim directory
 silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
-								" Create dir for backup, swap and indo file
+								" Create dir for backup, swap and undo file
 set backup
 set backupdir=~/.vim/.backup//	" Backup directory
 
@@ -75,8 +74,7 @@ set undolevels=1000				" How many undoes
 set undoreload=10000			" Number of lines to save for undo
 " }}}
 " Shortcuts and mappings {{{
-" Map leader
-let mapleader=","
+let mapleader=","				" Map leader
 
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h
@@ -100,11 +98,9 @@ map <Leader>v "+p
 inoremap <Leader>v <C-r>+
 vnoremap <Leader>x "+d
 
-" Fix indentation
-map <F7> mzgg=G`z
+map <F7> mzgg=G`z				" Fix indentation
 
-" Adding quit all command
-cnoreabbrev qq quitall
+cnoreabbrev qq quitall			" Adding quit all command
 
 " For vim files {{{
 autocmd Filetype vim call MyVim()
@@ -220,7 +216,7 @@ let g:livepreview_previewer = 'evince'
 let g:tex_flavor = "latex"
 " }}}
 let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
+let g:livepreview_previewer = 'evince'
 let g:vimtex_quickfix_mode=0
 set conceallevel=3
 let g:tex_conceal='abdmg'
