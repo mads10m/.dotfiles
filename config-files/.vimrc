@@ -9,7 +9,7 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
 	Plug 'w0rp/ale'
-	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --ts-completer --java-completer' }
+	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --ts-completer --java-completer' }
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'airblade/vim-gitgutter'
@@ -141,6 +141,7 @@ let g:ale_lint_on_insert_leave = 0
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
 " Ultisnips {{{
 
