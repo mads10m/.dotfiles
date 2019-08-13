@@ -218,7 +218,6 @@ let g:livepreview_previewer = 'evince'
 " output PDF is updated
 "Setl updatetime=1
 let g:tex_flavor = "latex"
-" }}}
 let g:tex_flavor='latex'
 let g:livepreview_previewer = 'evince'
 let g:vimtex_quickfix_mode=0
@@ -228,4 +227,5 @@ let g:tex_conceal='abdmg'
 " omnisharp-vim {{{
 let g:OmniSharp_server_use_mono = 1
 let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
+" }}}
 " }}}
