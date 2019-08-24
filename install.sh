@@ -78,3 +78,12 @@ else
 	git clone --depth 1 git@github.com:junegunn/fzf.git ~/.fzf
 	~/.fzf/install
 fi
+
+# Downloading the .vim repo
+TEMPLATES_DIR="$HOME/.vim"
+if [ -d "$TEMPLATES_DIR" ]; then
+	echo -e "$WARNING_MESSAGE $HOME/Templates does already exist"
+else
+	echo -e "${COLOR_GREEN}Cloning Templates${COLOR_RESET}"
+	git@github.com:mads10m/Templates.git ~/Templates
+fi
