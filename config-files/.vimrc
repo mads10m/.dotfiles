@@ -1,9 +1,10 @@
-" vim: foldmethod=marker foldlevel=-1
+" vim: foldmethod=marker foldlevel=-1 nolist
 
 set nocompatible
 filetype plugin indent on
 syntax on
 set encoding=utf-8
+scriptencoding utf-8
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
@@ -61,6 +62,10 @@ set noexpandtab					" Don't turn spaces into an tab
 set tabstop=4					" How many columns a tab is made out of
 set shiftwidth=4				" How many columns text will be indented when
 								" using indent operations (such as < or >)
+
+set list						" Shows special characters in file
+set listchars=tab:\|\ ,trail:·	" Sets tab and trailing characters 
+"set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 
 " Vim directory
 silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
@@ -128,7 +133,7 @@ let g:ale_fixers = {
 \	'javascript': ['prettier', 'eslint'],
 \	'cs': ['OmniSharp'],
 \	'python': ['pylint', 'flake8'],
-\	'latex': ['chktex'],
+\	'latex': ['ChkTeX -n'],
 \}
 
 let g:ale_open_list = 1
@@ -222,7 +227,7 @@ let g:tex_flavor = "latex"
 let g:tex_flavor='latex'
 let g:livepreview_previewer = 'evince'
 let g:vimtex_quickfix_mode=0
-set conceallevel=3
+"set conceallevel=3
 let g:tex_conceal='abdmg'
 " }}}
 " omnisharp-vim {{{
