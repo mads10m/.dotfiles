@@ -25,6 +25,13 @@ if [[ ! $PATH = *$SCRIPT_DIR* ]]; then
   export PATH=$PATH:$HOME/.scripts
 fi
 
+# test if android srydio is in PATH, if it is not then ut adds it
+if [[ ! $PATH = *$HOME/Android/Sdk* ]]; then
+	export ANDROID_HOME=$HOME/Android/Sdk
+fi
+if [[ ! $PATH = *$ANDROID_HOME/tools* ]]; then
+	export PATH=$PATH:$ANDROID_HOME/tools
+fi
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.

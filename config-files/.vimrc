@@ -9,7 +9,7 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
 	Plug 'w0rp/ale'
-	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --ts-completer --java-completer' }
+	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --ts-completer --java-completer' }
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'airblade/vim-gitgutter'
@@ -222,7 +222,7 @@ let g:tex_flavor = "latex"
 let g:tex_flavor='latex'
 let g:livepreview_previewer = 'evince'
 let g:vimtex_quickfix_mode=0
-set conceallevel=3
+"set conceallevel=3
 let g:tex_conceal='abdmg'
 " }}}
 " omnisharp-vim {{{
