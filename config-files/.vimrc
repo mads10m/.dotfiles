@@ -9,8 +9,8 @@ scriptencoding utf-8
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
-	Plug 'w0rp/ale'
-	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --ts-completer --java-completer' }
+	Plug 'dense-analysis/ale'
+	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --cs-completer --ts-completer --java-completer --clang-completer' }
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'airblade/vim-gitgutter'
@@ -64,7 +64,7 @@ set shiftwidth=4				" How many columns text will be indented when
 								" using indent operations (such as < or >)
 
 set list						" Shows special characters in file
-set listchars=tab:\|\ ,trail:·	" Sets tab and trailing characters 
+set listchars=tab:\|\ ,trail:·	" Sets tab and trailing characters
 "set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 
 " Vim directory
@@ -141,8 +141,11 @@ let g:ale_lint_on_save = 1
 let g:ale_echo_cursor = 0
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 0
+" Close error buffer when file is closed
+autocmd QuitPre * if empty(&bt) | lclose | endif
 " }}}
 " Youcompleteme {{{
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
