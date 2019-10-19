@@ -18,6 +18,8 @@ DOTFILES_LIST=(
 ".vimrc"
 ".eslintrc.json"
 ".stylelintrc.json"
+".pylintrc"
+".flake8"
 )
 
 # Colors name
@@ -55,6 +57,11 @@ done
 # Downloading global npm packages
 echo -e "${COLOR_GREEN}downloading global npm packages${COLOR_RESET}"
 npm install -g eslint stylelint
+
+# Downloading global pip and pip3 packages
+echo -e "${COLOR_GREEN}downloading global pip and pip3 packages${COLOR_RESET}"
+pip install pylint flake8
+pip3 install pylint flake8
 
 # Downloading the scripts repo
 SCRIPTS_DIR="$HOME/.scripts"
