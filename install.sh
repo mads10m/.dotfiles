@@ -16,7 +16,7 @@ DOTFILES_LIST=(
 ".profile"
 ".tmux.conf"
 ".vimrc"
-".eslintrc"
+".eslintrc.json"
 )
 
 # Colors name
@@ -50,6 +50,10 @@ for i in "${DOTFILES_LIST[@]}"; do
 	echo -n "made a symbolic link for $i "
 	ln -sfv $CONFIG_FILES_DIR/$i ~/$i
 done
+
+# Downloading global npm packages
+echo -e "${COLOR_GREEN}downloading global npm packages${COLOR_RESET}"
+npm install -g eslint
 
 # Downloading the scripts repo
 SCRIPTS_DIR="$HOME/.scripts"
