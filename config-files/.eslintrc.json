@@ -1,0 +1,38 @@
+{
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true
+	},
+	"rules": {
+		"no-cond-assign": ["error"],
+		"no-ex-assign": ["error"],
+		"no-extra-semi": ["error"],
+		"no-invalid-regexp": ["error"],
+		"no-shadow-restricted-names": ["error"],
+		"semi": ["error", "always"],
+		"curly": ["warn"],
+		"indent": ["warn", "tab"],
+		"no-compare-neg-zero": ["warn"],
+		"no-constant-condition": ["warn"],
+		"no-dupe-args": ["warn"],
+		"no-dupe-keys": ["warn"],
+		"no-duplicate-case": ["warn"],
+		"no-empty": ["warn"],
+		"no-extra-boolean-cast": ["warn"],
+		"no-inner-declarations": ["warn"],
+		"no-irregular-whitespace": ["warn"],
+		"no-mixed-spaces-and-tabs": ["warn"],
+		"no-obj-calls": ["warn"],
+		"no-redeclare": ["warn"],
+		"no-regex-spaces": ["warn"],
+		"no-self-assign": ["warn"]
+		"no-unreachable": ["warn"],
+		"no-unsafe-finally": ["warn"],
+		"no-unsafe-negation": ["warn"],
+		"no-unused-vars": ["warn"],
+		"quotes": ["warn", "double"],
+		"use-isnan": ["warn"],
+		"valid-typeof": ["warn"],
+	}
+}

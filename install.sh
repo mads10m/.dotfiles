@@ -16,7 +16,7 @@ DOTFILES_LIST=(
 ".profile"
 ".tmux.conf"
 ".vimrc"
-".eslintrc"
+".eslintrc.json"
 )
 
 # Colors name
