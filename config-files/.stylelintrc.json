@@ -1,0 +1,8 @@
+{
+	"rules": {
+		"indentation": "tab",
+		"no-duplicate-selectors": true,
+		"declaration-colon-space-before": "never",
+		"declaration-colon-space-after": "always"
+	}
+}

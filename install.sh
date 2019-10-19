@@ -17,6 +17,7 @@ DOTFILES_LIST=(
 ".tmux.conf"
 ".vimrc"
 ".eslintrc.json"
+".stylelintrc.json"
 )
 
 # Colors name
@@ -53,7 +54,7 @@ done
 
 # Downloading global npm packages
 echo -e "${COLOR_GREEN}downloading global npm packages${COLOR_RESET}"
-npm install -g eslint
+npm install -g eslint stylelint
 
 # Downloading the scripts repo
 SCRIPTS_DIR="$HOME/.scripts"
