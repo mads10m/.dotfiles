@@ -20,6 +20,7 @@ DOTFILES_LIST=(
 ".stylelintrc.json"
 ".pylintrc"
 ".flake8"
+".latexmkrc"
 )
 
 # Colors name
@@ -54,9 +55,13 @@ for i in "${DOTFILES_LIST[@]}"; do
 	ln -sfv $CONFIG_FILES_DIR/$i ~/$i
 done
 
+# Downloading ubuntu packages
+echo -e "${COLOR_GREEN}downloading ubuntu packages${COLOR_RESET}"
+sudo apt-get install python3-pip python-pip chktex lacheck
+
 # Downloading global npm packages
 echo -e "${COLOR_GREEN}downloading global npm packages${COLOR_RESET}"
-npm install -g eslint stylelint
+npm install -g eslint stylelint typescript
 
 # Downloading global pip and pip3 packages
 echo -e "${COLOR_GREEN}downloading global pip and pip3 packages${COLOR_RESET}"
