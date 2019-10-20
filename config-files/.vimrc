@@ -8,44 +8,45 @@ scriptencoding utf-8
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
-	Plug 'scrooloose/nerdtree'
-	Plug 'dense-analysis/ale'
-	Plug 'Valloric/YouCompleteMe', { 'do': './install.py --cs-completer --ts-completer --java-completer --clang-completer' }
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'airblade/vim-gitgutter'
-	Plug 'tpope/vim-surround'
-	"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	Plug '~/.fzf'
-	Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+Plug 'dense-analysis/ale'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --cs-completer --ts-completer --java-completer --clang-completer' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-surround'
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
 
-	Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'chaoren/vim-wordmotion'
 
-	" Style
-	Plug 'joshdick/onedark.vim'
-	Plug 'ap/vim-css-color'
-	Plug 'junegunn/goyo.vim'
-	Plug 'junegunn/limelight.vim'
+" Style
+Plug 'joshdick/onedark.vim'
+Plug 'ap/vim-css-color'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
-	" tmux
-	Plug 'christoomey/vim-tmux-navigator'
+" tmux
+Plug 'christoomey/vim-tmux-navigator'
 
-	" javascript
-	Plug 'pangloss/vim-javascript'
+" javascript
+Plug 'pangloss/vim-javascript'
 
-	" csharp
-	Plug 'OmniSharp/omnisharp-vim'
+" csharp
+Plug 'OmniSharp/omnisharp-vim'
 
-	" typescript
-	Plug 'leafgarland/typescript-vim'
+" typescript
+Plug 'leafgarland/typescript-vim'
 
-	" markdown
-	Plug 'shime/vim-livedown'
+" markdown
+Plug 'shime/vim-livedown'
 
-	" latex
-	Plug 'lervag/vimtex'
-	Plug 'mads10m/vim-template'
-	Plug 'xuhdev/vim-latex-live-preview'
+" latex
+Plug 'lervag/vimtex'
+Plug 'mads10m/vim-template'
 call plug#end()
 " }}}
 " Basic settings {{{
@@ -61,7 +62,7 @@ set autoindent					" Turns indent (tabs) on
 set noexpandtab					" Don't turn spaces into an tab
 set tabstop=4					" How many columns a tab is made out of
 set shiftwidth=4				" How many columns text will be indented when
-								" using indent operations (such as < or >)
+" using indent operations (such as < or >)
 
 set list						" Shows special characters in file
 set listchars=tab:\|\ ,trail:·	" Sets tab and trailing characters
@@ -69,7 +70,7 @@ set listchars=tab:\|\ ,trail:·	" Sets tab and trailing characters
 
 " Vim directory
 silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
-								" Create dir for backup, swap and undo file
+" Create dir for backup, swap and undo file
 set backup
 set backupdir=~/.vim/.backup//	" Backup directory
 
@@ -83,6 +84,7 @@ set undoreload=10000			" Number of lines to save for undo
 " }}}
 " Shortcuts and mappings {{{
 let mapleader=","				" Map leader
+let maplocalleader="ø"			" Map local leader
 
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h
@@ -106,135 +108,194 @@ map <Leader>v "+p
 inoremap <Leader>v <C-r>+
 vnoremap <Leader>x "+d
 
-map <F7> mzgg=G`z				" Fix indentation
+"map <F7> mzgg=G`z:ALEFix<CR>	" Fix indentation, trailing lines and
+" trim whitespace
 
 cnoreabbrev qq quitall			" Adding quit all command
 
 " For vim files {{{
-autocmd Filetype vim call MyVim()
+autocmd Filetype tex call MyVim()
 function! MyVim()
-	" source .vimrc
-	map <F5> :source ~/.vimrc<CR>
+	map <F5> :VimtexCompile<CR>
+	map <F3> :call ToggleFollowMode()<CR>
+
+	" Toggle folow mode
+	let s:enabled = 0
+	function! ToggleFollowMode()
+		if s:enabled
+			autocmd CursorMoved *.tex :VimtexView
+			autocmd CursorMovedI *.tex :VimtexView
+			let s:enabled = 0
+		else
+			autocmd CursorMoved *.tex
+			autocmd CursorMovedI *.tex
+			let s:enabled = 1
+		endif
+	endfunction
+	" }}}
+	" For latex files
+	autocmd Filetype tex call MyLatex()
+	function! MyLatex()
+		map <C-m> :VimtexTocToggle<CR>
+	endfunction
 endfunction
-" }}}
-" }}}
-" Plugin settings {{{
-" Onedark {{{
-colorscheme onedark
-"highlight Folded ctermbg=242 ctermfg=White
-" }}}
-" Nerdtree {{{
-map <C-n> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
-" }}}
-" Ale {{{
-let g:ale_fixers = {
-\	'*': ['remove_trailing_lines', 'trim_whitespace'],
-\	'javascript': ['prettier', 'eslint'],
-\	'cs': ['OmniSharp'],
-\	'python': ['pylint', 'flake8'],
-\	'latex': ['ChkTeX -n'],
-\}
 
-let g:ale_open_list = 1
-let g:ale_lint_on_save = 1
-let g:ale_echo_cursor = 0
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 0
-" Close error buffer when file is closed
-autocmd QuitPre * if empty(&bt) | lclose | endif
-" }}}
-" Youcompleteme {{{
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-" }}}
-" Ultisnips {{{
 
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+	" }}}
+	" Plugin settings {{{
+	" Onedark {{{
+	colorscheme onedark
+	"highlight Folded ctermbg=242 ctermfg=White
+	" }}}
+	" NERDtree {{{
+	map <C-n> :NERDTreeToggle<CR>
+	let NERDTreeShowHidden=1
+	" }}}
+	" NERDtree git {{{
+	let g:NERDTreeIndicatorMapCustom = {
+				\ "Modified"  : "✹",
+				\ "Staged"    : "✚",
+				\ "Untracked" : "✭",
+				\ "Renamed"   : "➜",
+				\ "Unmerged"  : "═",
+				\ "Deleted"   : "✖",
+				\ "Dirty"     : "✗",
+				\ "Clean"     : "✔︎",
+				\ 'Ignored'   : '☒',
+				\ "Unknown"   : "?"
+				\ }
+	let g:NERDTreeUpdateOnCursorHold = 0
+	let g:NERDTreeUpdateOnWrite      = 0
+	" }}}
+	" Ale {{{
+	"let g:ale_fixers = {
+	"			\	'*': ['remove_trailing_lines', 'trim_whitespace'],
+	"			\	'javascript': ['prettier'],
+	"			\	'cs': ['OmniSharp'],
+	"			\	'python': ['pylint', 'flake8'],
+	"			\	'latex': ['ChkTeX -n'],
+	"			\}
+	"let g:ale_linters = {
+	"			\	'javascript': ['eslint'],
+	"			\	'cs': ['OmniSharp'],
+	"			\	'python': ['pylint', 'flake8'],
+	"			\	'latex': ['ChkTeX -n'],
+	"			\}
+	let g:ale_linters = {
+				\	'javascript': ['eslint'],
+				\	'typescript': [''],
+				\	'css': ['stylelint'],
+				\	'scss': ['stylelint'],
+				\	'python': ['flake8', 'pylint'],
+				\	'cs': ['OmniSharp'],
+				\	'c': ['clang'],
+				\	'latex': ['chktex', 'lacheck'],
+				\}
+	let g:ale_fixers = {
+				\	'*': ['remove_trailing_lines', 'trim_whitespace'],
+				\}
+	let g:ale_open_list = 1
+	let g:ale_lint_on_save = 1
+	let g:ale_echo_cursor = 0
+	let g:ale_lint_on_text_changed = 'normal'
+	let g:ale_lint_on_insert_leave = 0
+	" Close error buffer when file is closed
+	autocmd QuitPre * if empty(&bt) | lclose | endif
+	" }}}
+	" Youcompleteme {{{
+	let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+	let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+	let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+	let g:SuperTabDefaultCompletionType = '<C-n>'
+	let g:ycm_autoclose_preview_window_after_insertion = 1
+	" }}}
+	" Ultisnips {{{
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+	let g:UltiSnipsExpandTrigger="<tab>"
+	let g:UltiSnipsJumpForwardTrigger="<tab>"
+	let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/my-snippets']
-" }}}
-" Airline {{{
-let g:airline_theme = 'onedark'
-let g:lightline = {
-\	 'colorscheme': 'onedark',
-\}
-" }}}
-" Fzf {{{
-let g:fzf_action = {
-\	'ctrl-t': 'tab split',
-\	'ctrl-x': 'split',
-\	'ctrl-v': 'vsplit'
-\}
+	" If you want :UltiSnipsEdit to split your window.
+	let g:UltiSnipsEditSplit="vertical"
 
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
+	let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/my-snippets']
+	" }}}
+	" Airline {{{
+	let g:airline_theme = 'onedark'
+	let g:lightline = {
+				\	 'colorscheme': 'onedark',
+				\}
+	" }}}
+	" Fzf {{{
+	let g:fzf_action = {
+				\	'ctrl-t': 'tab split',
+				\	'ctrl-x': 'split',
+				\	'ctrl-v': 'vsplit'
+				\}
 
-" }}}
-" Goyo and Limelight {{{
-" Shortcuts
-map <F4> :Goyo<CR>
-inoremap <F4> <Esc>:Goyo<CR>a
-" Settings
-let g:goyo_width=80
-let g:goyo_height='85%'
-let g:goyo_linenr=0
-" Goyo start
-function! s:goyo_enter()
-	silent !tmux set status off
+	" [Buffers] Jump to the existing window if possible
+	let g:fzf_buffers_jump = 1
 
-	" Changes folding color
-	highlight Folded ctermbg=242 ctermfg=White
-	set noshowmode
-	set noshowcmd
-	set scrolloff=999
-	Limelight
-endfunction
-" Goyo leave
-function! s:goyo_leave()
-	silent !tmux set status on
-	silent !tmux list-panes -F '\#F' | grep -q Z && tmux
-	" Changes folding color
-	highlight Folded ctermbg=242 ctermfg=White
-	resize-pane -Z
-	set showmode
-	set showcmd
-	set scrolloff=5
-	Limelight!
-endfunction
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-" }}}
-" vim-javascript {{{
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-" }}}
-" vim-latex-live-preview {{{
-let g:livepreview_previewer = 'evince'
-" set updatetime to a smaller value, which is the frequency that the
-" output PDF is updated
-"Setl updatetime=1
-let g:tex_flavor = "latex"
-let g:tex_flavor='latex'
-let g:livepreview_previewer = 'evince'
-let g:vimtex_quickfix_mode=0
-"set conceallevel=3
-let g:tex_conceal='abdmg'
-" }}}
-" omnisharp-vim {{{
-let g:OmniSharp_server_use_mono = 1
-let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
-" }}}
-" }}}
+	" }}}
+	" Goyo and Limelight {{{
+	" Shortcuts
+	map <F4> :Goyo<CR>
+	inoremap <F4> <Esc>:Goyo<CR>a
+	" Settings
+	let g:goyo_width=80
+	let g:goyo_height='85%'
+	let g:goyo_linenr=0
+	" Goyo start
+	function! s:goyo_enter()
+		silent !tmux set status off
+
+		" Changes folding color
+		highlight Folded ctermbg=242 ctermfg=White
+		set noshowmode
+		set noshowcmd
+		set scrolloff=999
+		Limelight
+	endfunction
+	" Goyo leave
+	function! s:goyo_leave()
+		silent !tmux set status on
+		silent !tmux list-panes -F '\#F' | grep -q Z && tmux
+		" Changes folding color
+		highlight Folded ctermbg=242 ctermfg=White
+		resize-pane -Z
+		set showmode
+		set showcmd
+		set scrolloff=5
+		Limelight!
+	endfunction
+	autocmd! User GoyoEnter nested call <SID>goyo_enter()
+	autocmd! User GoyoLeave nested call <SID>goyo_leave()
+	" Color name (:help gui-colors) or RGB color
+	let g:limelight_conceal_guifg = 'DarkGray'
+	let g:limelight_conceal_guifg = '#777777'
+	" }}}
+	" vim-javascript {{{
+	let g:javascript_plugin_jsdoc = 1
+	let g:javascript_plugin_flow = 1
+	" }}}
+	" vimtex {{{
+	let g:vimtex_view_method = 'zathura'
+	" }}}
+	" vim-latex-live-preview {{{
+	"let g:livepreview_previewer = 'evince'
+	" set updatetime to a smaller value, which is the frequency that the
+	" output PDF is updated
+	"Setl updatetime=1
+	"let g:tex_flavor = "latex"
+	"let g:tex_flavor='latex'
+	"let g:livepreview_previewer = 'evince'
+	"let g:vimtex_quickfix_mode=0
+	"set conceallevel=3
+	"let g:tex_conceal='abdmg'
+	" }}}
+	" omnisharp-vim {{{
+	let g:OmniSharp_server_use_mono = 1
+	let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
+	" }}}
+	" }}}
