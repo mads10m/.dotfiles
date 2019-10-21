@@ -172,5 +172,5 @@ export FZF_DEFAULT_OPTS="--height 40% --extended --border"
 export FZF_DEFAULT_COMMAND='ag --hidden --silent --nocolor --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# disable 
+# disable dotnet telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
