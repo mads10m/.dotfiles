@@ -164,9 +164,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# enable zfz
+# enable fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_OPTS="--height 40% --extended --border"
+
+# fzf uses .gitignore, ignores errors, and shows hidden folders
+export FZF_DEFAULT_COMMAND='ag --hidden --silent --nocolor --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # disable 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
