@@ -55,9 +55,13 @@ for i in "${DOTFILES_LIST[@]}"; do
 	ln -sfv $CONFIG_FILES_DIR/$i ~/$i
 done
 
+# Making symbolic link for zathura
+echo -n "made a symbolic link for zathurarc (~/.config/zathura/zathurarc)"
+ln -sfv $CONFIG_FILES_DIR/zathurarc ~/.config/zathura/zathurarc
+
 # Downloading ubuntu packages
 echo -e "${COLOR_GREEN}downloading ubuntu packages${COLOR_RESET}"
-sudo apt-get install python3-pip python-pip chktex lacheck zathura zathura-djvu zathura-pdf-poppler zathura-ps zathura-cb
+sudo apt-get install python3-pip python-pip chktex lacheck zathura zathura-djvu zathura-pdf-poppler zathura-ps zathura-cb suckless-tools
 
 # Downloading global npm packages
 echo -e "${COLOR_GREEN}downloading global npm packages${COLOR_RESET}"
