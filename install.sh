@@ -13,14 +13,42 @@ CONFIG_FILES_DIR="$DOTFILES_DIR/config-files"
 DOTFILES_LIST=(
 ".bash_aliases"
 ".bashrc"
-".profile"
-".tmux.conf"
-".vimrc"
 ".eslintrc.json"
-".stylelintrc.json"
-".pylintrc"
 ".flake8"
 ".latexmkrc"
+".profile"
+".pylintrc"
+".stylelintrc.json"
+".tmux.conf"
+".vimrc"
+)
+
+# List of packages (apt-get)
+PACKAGES_LIST=(
+"chktex"
+"lacheck"
+"python-pip"
+"python3-pip"
+"suckless-tools"
+"xdotool"
+"zathura"
+"zathura-cb"
+"zathura-djvu"
+"zathura-pdf-poppler"
+"zathura-ps"
+)
+
+# List of npm packages
+NPM_LIST=(
+"eslint"
+"stylelint"
+"typescript"
+)
+
+# List of pip and pip3 packages
+PIP_LIST=(
+"flake8"
+"pylint"
 )
 
 # Colors name
@@ -61,16 +89,31 @@ ln -sfv $CONFIG_FILES_DIR/zathurarc ~/.config/zathura/zathurarc
 
 # Downloading ubuntu packages
 echo -e "${COLOR_GREEN}downloading ubuntu packages${COLOR_RESET}"
-sudo apt-get install python3-pip python-pip xdotool chktex lacheck zathura zathura-djvu zathura-pdf-poppler zathura-ps zathura-cb suckless-tools
+TEMP_LIST="" # Reset TEMP_LIST
+for i in "${PACKAGES_LIST[@]}"; do
+	TEMP_LIST+="$i "
+done
+echo $TEMP_LIST
+sudo apt-get install $TEMP_LIST
 
 # Downloading global npm packages
 echo -e "${COLOR_GREEN}downloading global npm packages${COLOR_RESET}"
-npm install -g eslint stylelint typescript
+TEMP_LIST="" # Reset TEMP_LIST
+for i in "${NPM_LIST[@]}"; do
+	TEMP_LIST+="$i "
+done
+echo $TEMP_LIST
+npm install -g $TEMP_LIST
 
 # Downloading global pip and pip3 packages
 echo -e "${COLOR_GREEN}downloading global pip and pip3 packages${COLOR_RESET}"
-pip install pylint flake8
-pip3 install pylint flake8
+TEMP_LIST="" # Reset TEMP_LIST
+for i in "${PIP_LIST[@]}"; do
+	TEMP_LIST+="$i "
+done
+echo $TEMP_LIST
+pip install $TEMP_LIST
+pip3 install $TEMP_LIST
 
 # Downloading the scripts repo
 SCRIPTS_DIR="$HOME/.scripts"
