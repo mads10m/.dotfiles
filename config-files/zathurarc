@@ -3,6 +3,7 @@
 # Settings
 set window-height 1024
 set window-width 768
+set selection-clipboard clipboard
 set adjust-open width
 set show-scrollbars true
 set show-hidden true
