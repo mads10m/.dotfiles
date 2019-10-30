@@ -27,6 +27,7 @@ DOTFILES_LIST=(
 PACKAGES_LIST=(
 "chktex"
 "lacheck"
+"peek"
 "python-pip"
 "python3-pip"
 "suckless-tools"
