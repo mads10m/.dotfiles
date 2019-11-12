@@ -71,6 +71,9 @@ set listchars=tab:\|\ ,trail:·	" Sets tab and trailing characters
 set wildignore=.git/*
 set wildignore+=*/node_modules/*
 
+au BufWritePost *.c,*.cpp,*.h,*.py,*.cs,*.html,*.js,makefile,Makefile,*.tex silent! !ctags -R &
+								" Auto generate tags on save
+
 " Vim directory
 silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
 " Create dir for backup, swap and undo file

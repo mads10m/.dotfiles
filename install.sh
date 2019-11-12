@@ -13,6 +13,7 @@ CONFIG_FILES_DIR="$DOTFILES_DIR/config-files"
 DOTFILES_LIST=(
 ".bash_aliases"
 ".bashrc"
+".ctags"
 ".eslintrc.json"
 ".flake8"
 ".latexmkrc"
@@ -26,6 +27,7 @@ DOTFILES_LIST=(
 # List of packages (apt-get)
 PACKAGES_LIST=(
 "chktex"
+"exuberan-ctags"
 "lacheck"
 "peek"
 "python-pip"

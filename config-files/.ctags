@@ -1,0 +1,4 @@
+--exclude=.git
+--exclude=node_modules
+--exclude=tags
+--exclude=\*.min.\*
