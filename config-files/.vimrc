@@ -111,13 +111,20 @@ map <Leader>v "+p
 inoremap <Leader>v <C-r>+
 vnoremap <Leader>x "+d
 
-map <F7> mzgg=G`z:ALEFix<CR>	" Fix indentation, trailing lines and
-" trim whitespace
+map <F7> mzgg=G`z:ALEFix<CR>	" Fix indentation, trailing lines and trim whitespace
 
 cnoreabbrev qq quitall			" Adding quit all command
 
+" For vimrc and vimscript
+autocmd Filetype vim call MyVim()
+function! MyVim()
+	map <F5> :source ~/.vimrc<CR>
+endfunction
+
+" For latex files
 autocmd Filetype tex call MyLatex()
 function! MyLatex()
+	map <C-m> :VimtexTocToggle<CR>
 	map <F5> :VimtexCompile<CR>
 	map <F3> :call ToggleFollowMode()<CR>
 	map <C-m> <plug>(vimtex-toc-open)
@@ -137,11 +144,48 @@ function! ToggleFollowMode()
 	endif
 endfunction
 
-autocmd Filetype vim call MyVim()
-function! MyVim()
-	map <F5> :source ~/.vimrc<CR>
+"inoremap <C-f> <Esc>:!echo getline(".")
+inoremap <C-f> <C-o>:call NewInkscape(getline("."))<cr>
+
+function! NewInkscape(line)
+	if strlen(a:line) < 25
+		let l:tmpPath = "~/Templates/inkscape/template.svg"
+		let l:svgFile = substitute(a:line, '[ \t]', '-', "g") . ".svg"
+		let l:copyPath = getcwd() . "/figures/" . l:svgFile
+
+		echom l:tmpPath
+		echom l:copyPath
+		silent! execute "!cp" l:tmpPath l:copyPath
+		redraw!
+
+		silent! execute "!inkscape" l:copyPath . " &> /dev/null"
+		redraw!
+
+	else
+		echom "test"
+	endif
+	"echom substitute(a:line, " ", "-", "")
 endfunction
 
+" Toggle follow mode
+let s:enabled = 0
+function! ToggleFollowMode()
+	if s:enabled
+		autocmd CursorMoved *.tex :VimtexView
+		autocmd CursorMovedI *.tex :VimtexView
+		let s:enabled = 0
+	else
+		autocmd CursorMoved *.tex
+		autocmd CursorMovedI *.tex
+		let s:enabled = 1
+	endif
+endfunction
+"endfunction
+
+"let w:window = system("tmux display-message -p '#S:#I'")
+"let w:index = system("tmux display-message -p '#{pane_index}'")
+"let w:te = substitute(w:window.".".w:index, '\n\+$', '', '')
+"echo w:te
 " }}}
 " Plugin settings {{{
 " Onedark {{{
@@ -184,7 +228,6 @@ let g:NERDTreeUpdateOnWrite      = 0
 "			\}
 let g:ale_linters = {
 			\	'javascript': ['eslint'],
-			\	'typescript': [''],
 			\	'css': ['stylelint'],
 			\	'scss': ['stylelint'],
 			\	'python': ['flake8', 'pylint'],
@@ -282,6 +325,7 @@ let g:javascript_plugin_flow = 1
 " }}}
 " vimtex {{{
 let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_general_viewer = 'zathura'
 " }}}
 " vim-latex-live-preview {{{
 "let g:livepreview_previewer = 'evince'

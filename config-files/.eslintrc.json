@@ -26,13 +26,13 @@
 		"no-obj-calls": ["warn"],
 		"no-redeclare": ["warn"],
 		"no-regex-spaces": ["warn"],
-		"no-self-assign": ["warn"]
+		"no-self-assign": ["warn"],
 		"no-unreachable": ["warn"],
 		"no-unsafe-finally": ["warn"],
 		"no-unsafe-negation": ["warn"],
 		"no-unused-vars": ["warn"],
 		"quotes": ["warn", "double"],
 		"use-isnan": ["warn"],
-		"valid-typeof": ["warn"],
+		"valid-typeof": ["warn"]
 	}
 }
