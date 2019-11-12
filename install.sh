@@ -16,6 +16,7 @@ DOTFILES_LIST=(
 ".ctags"
 ".eslintrc.json"
 ".flake8"
+".gitignore"
 ".latexmkrc"
 ".profile"
 ".pylintrc"
