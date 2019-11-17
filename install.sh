@@ -28,7 +28,7 @@ DOTFILES_LIST=(
 # List of packages (apt-get)
 PACKAGES_LIST=(
 "chktex"
-"exuberan-ctags"
+"exuberant-ctags"
 "lacheck"
 "peek"
 "python-pip"
