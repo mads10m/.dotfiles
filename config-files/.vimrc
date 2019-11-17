@@ -72,7 +72,10 @@ set wildignore=.git/*
 set wildignore+=*/node_modules/*
 
 au BufWritePost *.c,*.cpp,*.h,*.py,*.cs,*.html,*.js,makefile,Makefile,*.tex silent! !ctags -R &
-								" Auto generate tags on save
+" Auto generate tags on save
+
+"set wildmode=longest:list,full	" Enable autocomplete
+set wildmode=longest:full,full	" Enable autocomplete
 
 " Vim directory
 silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
@@ -131,6 +134,36 @@ function! MyLatex()
 	map <F5> :VimtexCompile<CR>
 	map <F3> :call ToggleFollowMode()<CR>
 	map <C-m> <plug>(vimtex-toc-open)
+	inoremap <expr> <cr> CheckIfList() ? '<cr>\item ' : '<cr>'
+endfunction
+
+function! CheckIfList()
+	" This function test if curser is inside itemize or enumerate
+	" https://vi.stackexchange.com/questions/15333/inserting-text-within-a-block-automaticaly-for-each-enter-button-pressing/15334
+
+	" Test in itemize
+	let [l:lnum, l:cnum] = searchpairpos('\\begin{itemize}', '',
+				\  '\\end{itemize}', 'nbW')
+
+	" Test in enumerate
+	let [l:lnum, l:cnum] += searchpairpos('\\begin{enumerate}', '',
+				\  '\\end{enumerate}', 'nbW')
+
+	" Test in description
+	let [l:lnum, l:cnum] += searchpairpos('\\begin{description}', '',
+				\  '\\end{description}', 'nbW')
+
+	"echom "NEWLINE"
+	"echom l:lnum
+	"echom l:cnum
+
+	"if l:lnum > 0
+	"	return "\n\\item "
+	"endif
+	"
+	"return "\n"
+	
+	return l:lnum > 0
 endfunction
 
 " Toggle folow mode
@@ -243,9 +276,10 @@ let g:ale_fixers = {
 			\}
 let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
-let g:ale_echo_cursor = 0
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_insert_leave = 1
+let g:ale_close_preview_on_insert = 1
+let g:ale_echo_cursor = 0					" Echos errors when cursor is near a warning/error
 " Close error buffer when file is closed
 autocmd QuitPre * if empty(&bt) | lclose | endif
 " }}}
