@@ -135,6 +135,7 @@ function! MyLatex()
 	map <F3> :call ToggleFollowMode()<CR>
 	map <C-m> <plug>(vimtex-toc-open)
 	inoremap <expr> <cr> CheckIfList() ? '<cr>\item ' : '<cr>'
+	inoremap <C-f> <C-o>:call NewInkscape(getline("."))<cr>
 endfunction
 
 function! CheckIfList()
@@ -162,7 +163,7 @@ function! CheckIfList()
 	"endif
 	"
 	"return "\n"
-	
+
 	return l:lnum > 0
 endfunction
 
@@ -179,9 +180,6 @@ function! ToggleFollowMode()
 		let s:enabled = 1
 	endif
 endfunction
-
-"inoremap <C-f> <Esc>:!echo getline(".")
-inoremap <C-f> <C-o>:call NewInkscape(getline("."))<cr>
 
 function! NewInkscape(line)
 	if strlen(a:line) < 25
@@ -326,35 +324,40 @@ inoremap <F4> <Esc>:Goyo<CR>a
 " Settings
 let g:goyo_width=80
 let g:goyo_height='85%'
-let g:goyo_linenr=0
+let g:goyo_linenr=1
 " Goyo start
 function! s:goyo_enter()
-	silent !tmux set status off
+	if executable('tmux') && strlen($TMUX)
+		silent !tmux set status off
+		silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+	endif
 
-	" Changes folding color
-	highlight Folded ctermbg=242 ctermfg=White
 	set noshowmode
 	set noshowcmd
 	set scrolloff=999
-	Limelight
+	" Remove comment for limelight
+	"Limelight
 endfunction
 " Goyo leave
 function! s:goyo_leave()
-	silent !tmux set status on
-	silent !tmux list-panes -F '\#F' | grep -q Z && tmux
-	" Changes folding color
-	highlight Folded ctermbg=242 ctermfg=White
-	resize-pane -Z
+	if executable('tmux') && strlen($TMUX)
+		silent !tmux set status on
+		silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+	endif
 	set showmode
 	set showcmd
-	set scrolloff=5
-	Limelight!
+	set scrolloff=1
+	" Remove comment for limelight
+	"Limelight!
 endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
+let g:limelight_priority = -1
 " }}}
 " vim-javascript {{{
 let g:javascript_plugin_jsdoc = 1
