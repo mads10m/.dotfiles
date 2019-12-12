@@ -5,7 +5,7 @@ set window-height 1024
 set window-width 768
 set selection-clipboard clipboard
 set adjust-open width
-set show-scrollbars true
+#set show-scrollbars true
 set show-hidden true
 set window-title-basename true
 #set window-title-home-tilde true
@@ -41,11 +41,33 @@ map <C-8> set "pages-per-row 8"
 map <C-7> set "pages-per-row 9"
 
 # Colors
-set recolor-darkcolor  "#FFFFFF"
-set recolor-lightcolor "#000000"
-set statusbar-fg "#FFFFFF"
-set statusbar-bg "#000000"
-set inputbar-fg "#000000"
-set inputbar-bg "#FFFFFF"
-set completion-highlight-fg "#FFFFFF"
-set completion-highlight-bg "#6B8E23"
+set default-bg                  "#2D2D2D"
+set default-fg                  "#ff0000"
+
+set statusbar-fg                "#B0B0B0"
+set statusbar-bg                "#202020"
+
+set inputbar-bg                 "#151515"
+set inputbar-fg                 "#303030"
+
+set notification-error-bg       "#AC4142"
+set notification-error-fg       "#151515"
+
+set notification-warning-bg     "#AC4142"
+set notification-warning-fg     "#151515"
+
+set highlight-color             "#F4BF75"
+set highlight-active-color      "#6A9FB5"
+
+set completion-highlight-fg     "#303030"
+set completion-highlight-bg     "#75B5AA"
+
+set completion-bg               "#303030"
+set completion-fg               "#75B5AA"
+
+set notification-bg             "#90A959"
+set notification-fg             "#151515"
+
+set recolor-lightcolor          "#262626"
+set recolor-darkcolor           "#DEDEDE"
+set recolor
