@@ -16,6 +16,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
+"Plug 'jiangmiao/auto-pairs'
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -90,6 +91,13 @@ set undofile					" Save undo file after file closes
 set undodir=~/.vim/.undo//		" Undo directory
 set undolevels=1000				" How many undoes
 set undoreload=10000			" Number of lines to save for undo
+
+"set 80 column limit
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
 " }}}
 " Shortcuts and mappings {{{
 let mapleader=","				" Map leader
@@ -334,7 +342,7 @@ function! s:goyo_enter()
 
 	set noshowmode
 	set noshowcmd
-	set scrolloff=999
+	"set scrolloff=999
 	" Remove comment for limelight
 	"Limelight
 endfunction
@@ -346,7 +354,7 @@ function! s:goyo_leave()
 	endif
 	set showmode
 	set showcmd
-	set scrolloff=1
+	"set scrolloff=1
 	" Remove comment for limelight
 	"Limelight!
 endfunction
