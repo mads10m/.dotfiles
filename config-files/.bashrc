@@ -157,6 +157,10 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
 	fi
 fi
 
+# set vim to default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 # enable control-s and control-q
 stty -ixon
 
