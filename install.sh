@@ -22,6 +22,7 @@ DOTFILES_LIST=(
 ".profile"
 ".pylintrc"
 ".stylelintrc.json"
+".jsconfig.json"
 ".tmux.conf"
 ".vimrc"
 )
