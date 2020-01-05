@@ -59,6 +59,8 @@ set incsearch					" Enable incremental searching
 set splitbelow splitright		" New splits are below or to the right
 autocmd VimResized * wincmd =	" Auto resize windows
 
+set backspace=indent,eol,start	" Fix backspace button
+
 set autoindent					" Turns indent (tabs) on
 set noexpandtab					" Don't turn spaces into an tab
 set tabstop=4					" How many columns a tab is made out of
@@ -270,6 +272,7 @@ let g:NERDTreeUpdateOnWrite      = 0
 "			\}
 let g:ale_linters = {
 			\	'javascript': ['eslint'],
+			\	'typescript': ['tsserver'],
 			\	'css': ['stylelint'],
 			\	'scss': ['stylelint'],
 			\	'python': ['flake8', 'pylint'],
