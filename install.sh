@@ -42,6 +42,22 @@ PACKAGES_LIST=(
 "zathura-djvu"
 "zathura-pdf-poppler"
 "zathura-ps"
+"libncurses5-dev"	# Packages to compile vim
+"libgnome2-dev"
+"libgnomeui-dev"
+"libgtk2.0-dev"
+"libatk1.0-dev"
+"libbonoboui2-dev"
+"libcairo2-dev"
+"libx11-dev"
+"libxpm-dev"
+"libxt-dev"
+"python-dev"
+"python3-dev"
+"ruby-dev"
+"lua5.1"
+"liblua5.1-dev"
+"libperl-dev"
 )
 
 # List of npm packages
@@ -92,6 +108,10 @@ done
 # Making symbolic link for zathura
 echo -n "made a symbolic link for zathurarc (~/.config/zathura/zathurarc)"
 ln -sfv $CONFIG_FILES_DIR/zathurarc ~/.config/zathura/zathurarc
+
+# Making symbolic link for ranger
+echo -n "made a symbolic link for ranger (~/.config/ranger/rc.conf)"
+ln -sfv $CONFIG_FILES_DIR/rc.conf ~/.config/ranger/rc.conf
 
 # Downloading ubuntu packages
 echo -e "${COLOR_GREEN}downloading ubuntu packages${COLOR_RESET}"
