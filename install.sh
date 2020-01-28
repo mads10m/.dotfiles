@@ -42,6 +42,7 @@ PACKAGES_LIST=(
 "zathura-djvu"
 "zathura-pdf-poppler"
 "zathura-ps"
+"clamav"
 "libncurses5-dev"	# Packages to compile vim
 "libgnome2-dev"
 "libgnomeui-dev"
