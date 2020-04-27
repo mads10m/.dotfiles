@@ -8,103 +8,93 @@ scriptencoding utf-8
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
+" Navigation
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'dense-analysis/ale'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --cs-completer --ts-completer --java-completer --clang-completer' }
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-surround'
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug '~/.fzf'
-Plug 'junegunn/fzf.vim'
-
-Plug 'SirVer/ultisnips'
-Plug 'chaoren/vim-wordmotion'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Style
 Plug 'joshdick/onedark.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 
-" tmux
-Plug 'christoomey/vim-tmux-navigator'
+" Functionality
+Plug 'SirVer/ultisnips'
+"Plug 'dense-analysis/ale'
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --cs-completer --ts-completer --java-completer --clang-completer' }
 
-" javascript
-Plug 'pangloss/vim-javascript'
+" Editor
+Plug 'chaoren/vim-wordmotion'
 
-" csharp
-Plug 'OmniSharp/omnisharp-vim'
+" Searching
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-" typescript
+" look at
+Plug 'tpope/vim-fugitive'
+" Plug 'mbbill/undotree'
+
+" Typescript
 Plug 'leafgarland/typescript-vim'
 
-" markdown
-Plug 'shime/vim-livedown'
+" React
+Plug 'maxmellon/vim-jsx-pretty'
 
-" latex
+" Latex
 Plug 'lervag/vimtex'
-Plug 'mads10m/vim-template'
+
 call plug#end()
 " }}}
 " Basic settings {{{
 set number						" Shows line numbers
 
 set hlsearch					" Highlight all searches
-set incsearch					" Enable incremental searching
+set incsearch					" Highlight search while it is
+								" being typed
 
-set splitbelow splitright		" New splits are below or to the right
+set autoindent					" Turns indent (tabs) on
+set noexpandtab					" Don't turn spaces into an tab
+set tabstop=4					" How many columns a tab is
+								" made out of
+set shiftwidth=4				" How many columns text will be
+								" indented when using indent
+								" operations (such as < or >)
+
+set hidden						"
+
+set wildmode=longest:full,full	" Enable better autocomplete
+
+
+set list
+set listchars=tab:\ \ ,trail:·	" Show trailing whitespace
+
+" Change tabs to spaces (2 spaces) in work directory
+autocmd BufRead,BufNewFile ~/work/* setlocal expandtab tabstop=2 shiftwidth=2
+
+set splitbelow splitright		" New splits are below or to
+								" the right
 autocmd VimResized * wincmd =	" Auto resize windows
 
 set backspace=indent,eol,start	" Fix backspace button
 
-set autoindent					" Turns indent (tabs) on
-set noexpandtab					" Don't turn spaces into an tab
-set tabstop=4					" How many columns a tab is made out of
-set shiftwidth=4				" How many columns text will be indented when
-" using indent operations (such as < or >)
+let mapleader=","				" Map leader
+let maplocalleader="_"			" Map local leader
 
-set list						" Shows special characters in file
-set listchars=tab:\|\ ,trail:·	" Sets tab and trailing characters
-"set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set updatetime=100				" How many milliseconds before
+								" the swap file will be
+								" written to disk if nothing
+								" is typed. (Used for updating
+								" vim-gitgutter faster)
+
+set colorcolumn=80				" Set 80 column limit
 
 set wildignore=.git/*
 set wildignore+=*/node_modules/*
 
-au BufWritePost *.c,*.cpp,*.h,*.py,*.cs,*.html,*.js,makefile,Makefile,*.tex silent! !ctags -R &
-" Auto generate tags on save
-
-"set wildmode=longest:list,full	" Enable autocomplete
-set wildmode=longest:full,full	" Enable autocomplete
-
-" Vim directory
-silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
-" Create dir for backup, swap and undo file
-set backup
-set backupdir=~/.vim/.backup//	" Backup directory
-
-set swapfile
-set directory=~/.vim/.swp//		" Swap directory
-
-set undofile					" Save undo file after file closes
-set undodir=~/.vim/.undo//		" Undo directory
-set undolevels=1000				" How many undoes
-set undoreload=10000			" Number of lines to save for undo
-
-"set 80 column limit
-if exists('+colorcolumn')
-  set colorcolumn=80
-else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-endif
 " }}}
-" Shortcuts and mappings {{{
-let mapleader=","				" Map leader
-let maplocalleader="_"			" Map local leader
-
+" Mappings {{{
 " Shortcutting split navigation, saving a keypress:
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -117,128 +107,77 @@ inoremap <silent> <Leader>s <Esc>:update<CR>i
 vnoremap <silent> <Leader>s <Esc>:w<CR>
 
 " Spell check
-map <F6><F6> :setlocal spell!<CR>
-map <F6>e :setlocal spell spelllang=en_us<CR>
-map <F6>d :setlocal spell spelllang=da<CR>
+noremap <F6><F6> :setlocal spell!<CR>
+noremap <F6>e :setlocal spell spelllang=en_us<CR>
+noremap <F6>d :setlocal spell spelllang=da<CR>
 
 " Copy and paste to clipboard
 vnoremap <Leader>c "+y
-map <Leader>v "+p
+noremap <Leader>v "+p
 inoremap <Leader>v <C-r>+
 vnoremap <Leader>x "+d
 
-map <F7> mzgg=G`z:ALEFix<CR>	" Fix indentation, trailing lines and trim whitespace
+" Adding quit all command
+cnoreabbrev qq quitall
 
-cnoreabbrev qq quitall			" Adding quit all command
+" Fix indentation, trailing lines and trim whitespace
+noremap <F7> mzgg=G`z:YcmCompleter Format<CR>:ALEFix<CR>:ALEFix<CR>
 
-" For vimrc and vimscript
-autocmd Filetype vim call MyVim()
-function! MyVim()
-	map <F5> :source ~/.vimrc<CR>
-endfunction
+" YCM
+noremap <Leader>gt :YcmCompleter GoTo<CR>
+noremap <Leader>gr :YcmCompleter GoToReferences<CR>
+noremap <Leader>gd :YcmCompleter GetDoc<CR>
+noremap <Leader>rr :YcmCompleter RefactorRename<Space>
 
-" For latex files
+" Buffers
+nnoremap <Left> :bprevious<CR>
+nnoremap <Leader>bn :bprevious<CR>
+nnoremap <Right> :bnext<CR>
+nnoremap <Leader>bp :bnext<CR>
+
+nnoremap <Leader>bq :bp <BAR> bd #<CR>
+nnoremap <Leader>bl :Buffers<CR>
+
+"execute system('git rev-parse --is-inside-work-tree')
+"if execute system('git rev-parse --is-inside-work-tree') =~ true
+"	noremap <Leader>f :GFiles<CR>
+"else
+"	noremap <Leader>f :Files<CR>
+"endif
+" }}}
+" Vim directory {{{
+" Create dir for backup, swap and undo file
+silent execute '!mkdir -p ~/.vim/.backup ~/.vim/.swp ~/.vim/.undo'
+
+set backup
+set backupdir=~/.vim/.backup//		" Backup directory
+
+set swapfile
+set directory=~/.vim/.swp//			" Swap directory
+
+set undofile						" Save undo file after file closes
+set undodir=~/.vim/.undo//			" Undo directory
+set undolevels=1000					" How many undoes
+set undoreload=10000				" Number of lines to save for undo
+" }}}
+" language specific settings {{{
+" Latex {{{
 autocmd Filetype tex call MyLatex()
 function! MyLatex()
 	map <C-m> :VimtexTocToggle<CR>
 	map <F5> :VimtexCompile<CR>
 	map <F3> :call ToggleFollowMode()<CR>
 	map <C-m> <plug>(vimtex-toc-open)
-	inoremap <expr> <cr> CheckIfList() ? '<cr>\item ' : '<cr>'
-	inoremap <C-f> <C-o>:call NewInkscape(getline("."))<cr>
+	"inoremap <expr> <cr> CheckIfList() ? '<cr>\item ' : '<cr>'
+	"inoremap <C-f> <C-o>:call NewInkscape(getline("."))<cr>
 endfunction
-
-function! CheckIfList()
-	" This function test if curser is inside itemize or enumerate
-	" https://vi.stackexchange.com/questions/15333/inserting-text-within-a-block-automaticaly-for-each-enter-button-pressing/15334
-
-	" Test in itemize
-	let [l:lnum, l:cnum] = searchpairpos('\\begin{itemize}', '',
-				\  '\\end{itemize}', 'nbW')
-
-	" Test in enumerate
-	let [l:lnum, l:cnum] += searchpairpos('\\begin{enumerate}', '',
-				\  '\\end{enumerate}', 'nbW')
-
-	" Test in description
-	let [l:lnum, l:cnum] += searchpairpos('\\begin{description}', '',
-				\  '\\end{description}', 'nbW')
-
-	"echom "NEWLINE"
-	"echom l:lnum
-	"echom l:cnum
-
-	"if l:lnum > 0
-	"	return "\n\\item "
-	"endif
-	"
-	"return "\n"
-
-	return l:lnum > 0
-endfunction
-
-" Toggle folow mode
-let s:enabled = 1
-function! ToggleFollowMode()
-	if s:enabled
-		autocmd CursorMoved *.tex :VimtexView
-		autocmd CursorMovedI *.tex :VimtexView
-		let s:enabled = 0
-	else
-		autocmd! CursorMoved *.tex
-		autocmd! CursorMovedI *.tex
-		let s:enabled = 1
-	endif
-endfunction
-
-function! NewInkscape(line)
-	if strlen(a:line) < 25
-		let l:tmpPath = "~/Templates/inkscape/template.svg"
-		let l:svgFile = substitute(a:line, '[ \t]', '-', "g") . ".svg"
-		let l:copyPath = getcwd() . "/figures/" . l:svgFile
-
-		echom l:tmpPath
-		echom l:copyPath
-		silent! execute "!cp" l:tmpPath l:copyPath
-		redraw!
-
-		silent! execute "!inkscape" l:copyPath . " &> /dev/null"
-		redraw!
-
-	else
-		echom "test"
-	endif
-	"echom substitute(a:line, " ", "-", "")
-endfunction
-
-" Toggle follow mode
-let s:enabled = 0
-function! ToggleFollowMode()
-	if s:enabled
-		autocmd CursorMoved *.tex :VimtexView
-		autocmd CursorMovedI *.tex :VimtexView
-		let s:enabled = 0
-	else
-		autocmd CursorMoved *.tex
-		autocmd CursorMovedI *.tex
-		let s:enabled = 1
-	endif
-endfunction
-"endfunction
-
-"let w:window = system("tmux display-message -p '#S:#I'")
-"let w:index = system("tmux display-message -p '#{pane_index}'")
-"let w:te = substitute(w:window.".".w:index, '\n\+$', '', '')
-"echo w:te
+" }}}
 " }}}
 " Plugin settings {{{
-" Onedark {{{
-colorscheme onedark
-"highlight Folded ctermbg=242 ctermfg=White
-" }}}
 " NERDtree {{{
 map <C-n> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden = 1
+let NERDTreeIgnore = ["^node_modules$", ".git$"]
 " }}}
 " NERDtree git {{{
 let g:NERDTreeIndicatorMapCustom = {
@@ -256,20 +195,20 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:NERDTreeUpdateOnCursorHold = 0
 let g:NERDTreeUpdateOnWrite      = 0
 " }}}
-" Ale {{{
-"let g:ale_fixers = {
-"			\	'*': ['remove_trailing_lines', 'trim_whitespace'],
-"			\	'javascript': ['prettier'],
-"			\	'cs': ['OmniSharp'],
-"			\	'python': ['pylint', 'flake8'],
-"			\	'latex': ['ChkTeX -n'],
-"			\}
-"let g:ale_linters = {
-"			\	'javascript': ['eslint'],
-"			\	'cs': ['OmniSharp'],
-"			\	'python': ['pylint', 'flake8'],
-"			\	'latex': ['ChkTeX -n'],
-"			\}
+" Onedark {{{
+colorscheme onedark
+" }}}
+" vim-airline {{{
+"let g:airline#extensions#tabline#enabled = 1	" Enabel buffer details
+"let g:airline#extensions#tabline#buffer_nr_show = 0
+"let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#enabled = 1		" Enable enhanced tabline
+let g:airline#extensions#tabline#formatter = 'default'
+"let g:airline#extensions#tabline#tab_nr_type = 1	" Display tab number
+"let g:airline#extensions#tabline#show_tab_nr = 1	" Display number of tabs
+"let g:airline#extensions#tabline#buffer_nr_show = 0	" Display number of buffers in tab
+" }}}
+" ALE {{{
 let g:ale_linters = {
 			\	'javascript': ['eslint'],
 			\	'typescript': ['tsserver'],
@@ -282,6 +221,8 @@ let g:ale_linters = {
 			\}
 let g:ale_fixers = {
 			\	'*': ['remove_trailing_lines', 'trim_whitespace'],
+			\	'javascript': ['eslint'],
+			\	'typescript': ['tsserver'],
 			\}
 let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
@@ -292,16 +233,21 @@ let g:ale_echo_cursor = 0					" Echos errors when cursor is near a warning/error
 " Close error buffer when file is closed
 autocmd QuitPre * if empty(&bt) | lclose | endif
 " }}}
-" Youcompleteme {{{
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+" YouCompleteMe {{{
+"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_complete_in_comments = 1
+"let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_use_ultisnips_completer = 1
 " }}}
 " Ultisnips {{{
 
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -311,87 +257,30 @@ let g:UltiSnipsEditSplit="vertical"
 
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/my-snippets']
 " }}}
-" Airline {{{
-let g:airline_theme = 'onedark'
-let g:lightline = {
-			\	 'colorscheme': 'onedark',
-			\}
-" }}}
-" Fzf {{{
-let g:fzf_action = {
-			\	'ctrl-t': 'tab split',
-			\	'ctrl-x': 'split',
-			\	'ctrl-v': 'vsplit'
-			\}
+" FZF {{{
+" Where and how big the preview window is
+let g:fzf_preview_window = 'right:50%'
 
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
+" Mapping selecting mappings
+"nmap <leader><tab> <plug>(fzf-maps-n)
+"xmap <leader><tab> <plug>(fzf-maps-x)
+"omap <leader><tab> <plug>(fzf-maps-o)
+"
+"" Insert mode completion
+"imap <c-x><c-k> <plug>(fzf-complete-word)
+"imap <c-x><c-f> <plug>(fzf-complete-path)
+"imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+"imap <c-x><c-l> <plug>(fzf-complete-line)
+"
+"let g:fzf_action = {
+"	\	'ctrl-t': 'tab split',
+"	\	'ctrl-x': 'split',
+"	\	'ctrl-v': 'vsplit'
+"	\}
 
 " }}}
-" Goyo and Limelight {{{
-" Shortcuts
-map <F4> :Goyo<CR>
-inoremap <F4> <Esc>:Goyo<CR>a
-" Settings
-let g:goyo_width=80
-let g:goyo_height='85%'
-let g:goyo_linenr=1
-" Goyo start
-function! s:goyo_enter()
-	if executable('tmux') && strlen($TMUX)
-		silent !tmux set status off
-		silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-	endif
-
-	set noshowmode
-	set noshowcmd
-	"set scrolloff=999
-	" Remove comment for limelight
-	"Limelight
-endfunction
-" Goyo leave
-function! s:goyo_leave()
-	if executable('tmux') && strlen($TMUX)
-		silent !tmux set status on
-		silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-	endif
-	set showmode
-	set showcmd
-	"set scrolloff=1
-	" Remove comment for limelight
-	"Limelight!
-endfunction
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-let g:limelight_priority = -1
-" }}}
-" vim-javascript {{{
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-" }}}
-" vimtex {{{
+" Vimtex {{{
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_general_viewer = 'zathura'
-" }}}
-" vim-latex-live-preview {{{
-"let g:livepreview_previewer = 'evince'
-" set updatetime to a smaller value, which is the frequency that the
-" output PDF is updated
-"Setl updatetime=1
-"let g:tex_flavor = "latex"
-"let g:tex_flavor='latex'
-"let g:livepreview_previewer = 'evince'
-"let g:vimtex_quickfix_mode=0
-"set conceallevel=3
-"let g:tex_conceal='abdmg'
-" }}}
-" omnisharp-vim {{{
-let g:OmniSharp_server_use_mono = 1
-let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
 " }}}
 " }}}

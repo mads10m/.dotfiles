@@ -173,8 +173,8 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_OPTS="--height 40% --extended --border"
 
 # fzf uses .gitignore, ignores errors, and shows hidden folders
-export FZF_DEFAULT_COMMAND='ag --hidden --silent --nocolor --ignore .git -g ""'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+#export FZF_DEFAULT_COMMAND='ag --hidden --silent --nocolor --ignore .git --ignore node_modules -g ""'
+#export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #export FZF_ALT_C_COMMAND='find . -type d -not -path ".*git*" -not -path ".*node_modules*" 2>&1 | grep -v "Permission denied" | cut -c3- | grep -v "^$"'
 
 # disable dotnet telemetry
