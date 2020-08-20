@@ -19,11 +19,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
+Plug 'cakebaker/scss-syntax.vim'
 
 " Functionality
-Plug 'SirVer/ultisnips'
-"Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --cs-completer --ts-completer --java-completer --clang-completer' }
+Plug 'SirVer/ultisnips'
 
 " Editor
 Plug 'chaoren/vim-wordmotion'
@@ -180,7 +181,7 @@ let NERDTreeShowHidden = 1
 let NERDTreeIgnore = ["^node_modules$", ".git$"]
 " }}}
 " NERDtree git {{{
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
 			\ "Modified"  : "✹",
 			\ "Staged"    : "✚",
 			\ "Untracked" : "✭",
@@ -192,8 +193,8 @@ let g:NERDTreeIndicatorMapCustom = {
 			\ 'Ignored'   : '☒',
 			\ "Unknown"   : "?"
 			\ }
-let g:NERDTreeUpdateOnCursorHold = 0
-let g:NERDTreeUpdateOnWrite      = 0
+let g:NERDTreeGitStatusUpdateOnCursorHold = 0
+let g:NERDTreeGitStatusUpdateOnWrite      = 0
 " }}}
 " Onedark {{{
 colorscheme onedark
@@ -282,5 +283,9 @@ let g:fzf_preview_window = 'right:50%'
 " Vimtex {{{
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_general_viewer = 'zathura'
+let g:tex_flavor = 'texlive'
+"let g:vimtex_quickfix_mode=0
+"set conceallevel=1
+"let g:tex_conceal='abdmg'
 " }}}
 " }}}

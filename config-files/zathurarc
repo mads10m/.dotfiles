@@ -12,6 +12,10 @@ set window-title-basename true
 set statusbar-home-tilde true
 set show-recent 10
 
+# 
+set synctex true
+set synctex-editor-command "gvim +%{line} %{input}"
+
 # Padding
 set statusbar-h-padding 0
 set statusbar-v-padding 0
