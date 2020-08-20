@@ -94,6 +94,11 @@ set colorcolumn=80				" Set 80 column limit
 set wildignore=.git/*
 set wildignore+=*/node_modules/*
 
+" Auto spellcheck
+autocmd FileType gitcommit setlocal spell
+autocmd FileType tex setlocal spell
+autocmd FileType markdown setlocal spell
+
 " }}}
 " Mappings {{{
 " Shortcutting split navigation, saving a keypress:
