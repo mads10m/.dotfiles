@@ -288,8 +288,8 @@ let g:fzf_preview_window = 'right:50%'
 " Vimtex {{{
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_general_viewer = 'zathura'
-let g:tex_flavor = 'texlive'
-"let g:vimtex_quickfix_mode=0
+let g:tex_flavor = 'latex'
+let g:vimtex_quickfix_mode=0
 "set conceallevel=1
 "let g:tex_conceal='abdmg'
 " }}}
