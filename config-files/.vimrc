@@ -96,7 +96,7 @@ set wildignore+=*/node_modules/*
 
 " Auto spellcheck
 autocmd FileType gitcommit setlocal spell
-autocmd FileType tex setlocal spell
+autocmd FileType tex setlocal spell spelllang=da
 autocmd FileType markdown setlocal spell
 
 " }}}
