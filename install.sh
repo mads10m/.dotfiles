@@ -55,6 +55,9 @@ PACKAGES_LIST=(
 "libx11-dev"
 "libxpm-dev"
 "libxt-dev"
+"liblua5.1-dev"		# lua dev for vim (https://github.com/Shougo/neocomplete.vim/issues/31)
+"libperl-dev"		# perl dev for vim
+"tcl-dev"			# tcl dev for vim
 "python-dev"
 "python3-dev"
 "ruby-dev"
@@ -124,6 +127,11 @@ for i in "${PACKAGES_LIST[@]}"; do
 done
 echo $TEMP_LIST
 sudo apt-get install $TEMP_LIST
+
+# Hack to get lua to work with vim on debian
+echo -e "${COLOR_GREEN}Hack to get lua to work with vim on debian${COLOR_RESET}"
+sudo cp -r /usr/include/lua5.1/* /usr/include/lua5.1/include/
+sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.1.so /usr/local/lib/liblua.so
 
 # Downloading global npm packages
 echo -e "${COLOR_GREEN}downloading global npm packages${COLOR_RESET}"
