@@ -45,7 +45,13 @@ Plug 'maxmellon/vim-jsx-pretty'
 
 " Latex
 Plug 'lervag/vimtex'
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
+" Markdown
+Plug 'shime/vim-livedown'
+
+" Vim config
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 " }}}
 " Basic settings {{{
@@ -53,15 +59,15 @@ set number						" Shows line numbers
 
 set hlsearch					" Highlight all searches
 set incsearch					" Highlight search while it is
-								" being typed
+" being typed
 
 set autoindent					" Turns indent (tabs) on
 set noexpandtab					" Don't turn spaces into an tab
 set tabstop=4					" How many columns a tab is
-								" made out of
+" made out of
 set shiftwidth=4				" How many columns text will be
-								" indented when using indent
-								" operations (such as < or >)
+" indented when using indent
+" operations (such as < or >)
 
 set hidden						"
 
@@ -75,7 +81,7 @@ set listchars=tab:\ \ ,trail:·	" Show trailing whitespace
 autocmd BufRead,BufNewFile ~/work/* setlocal expandtab tabstop=2 shiftwidth=2
 
 set splitbelow splitright		" New splits are below or to
-								" the right
+" the right
 autocmd VimResized * wincmd =	" Auto resize windows
 
 set backspace=indent,eol,start	" Fix backspace button
@@ -84,10 +90,10 @@ let mapleader=","				" Map leader
 let maplocalleader="_"			" Map local leader
 
 set updatetime=100				" How many milliseconds before
-								" the swap file will be
-								" written to disk if nothing
-								" is typed. (Used for updating
-								" vim-gitgutter faster)
+" the swap file will be
+" written to disk if nothing
+" is typed. (Used for updating
+" vim-gitgutter faster)
 
 set colorcolumn=80				" Set 80 column limit
 
@@ -176,6 +182,9 @@ function! MyLatex()
 	map <C-m> <plug>(vimtex-toc-open)
 	"inoremap <expr> <cr> CheckIfList() ? '<cr>\item ' : '<cr>'
 	"inoremap <C-f> <C-o>:call NewInkscape(getline("."))<cr>
+	set conceallevel=1
+	let g:tex_conceal='abdmg'
+	hi Conceal ctermbg=none
 endfunction
 " }}}
 " }}}
@@ -208,7 +217,7 @@ colorscheme onedark
 "let g:airline#extensions#tabline#enabled = 1	" Enabel buffer details
 "let g:airline#extensions#tabline#buffer_nr_show = 0
 "let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#enabled = 1		" Enable enhanced tabline
+"let g:airline#extensions#tabline#enabled = 1		" Enable enhanced tabline
 let g:airline#extensions#tabline#formatter = 'default'
 "let g:airline#extensions#tabline#tab_nr_type = 1	" Display tab number
 "let g:airline#extensions#tabline#show_tab_nr = 1	" Display number of tabs
@@ -230,9 +239,9 @@ let g:ale_fixers = {
 			\	'javascript': ['eslint'],
 			\	'typescript': ['tsserver'],
 			\}
-let g:ale_open_list = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'normal'
+let g:ale_open_list = 0						" Only lint on save and inset leave
+let g:ale_lint_on_text_changed = 'never'	" (stopping ALE from
+let g:ale_lint_on_save = 1					" fucking up ultisnips)
 let g:ale_lint_on_insert_leave = 1
 let g:ale_close_preview_on_insert = 1
 let g:ale_echo_cursor = 0					" Echos errors when cursor is near a warning/error
@@ -248,7 +257,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_complete_in_comments = 1
 "let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_use_ultisnips_completer = 1
+let g:ycm_use_ultisnips_completer = 0
 " }}}
 " Ultisnips {{{
 
@@ -290,7 +299,10 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_general_viewer = 'zathura'
 let g:tex_flavor = 'latex'
 let g:vimtex_quickfix_mode=0
-"set conceallevel=1
-"let g:tex_conceal='abdmg'
+
+" }}}
+" livedown {{{
+let g:livedown_autorun = 1
+let g:livedown_open = 1
 " }}}
 " }}}
