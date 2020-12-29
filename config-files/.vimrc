@@ -59,15 +59,15 @@ set number						" Shows line numbers
 
 set hlsearch					" Highlight all searches
 set incsearch					" Highlight search while it is
-" being typed
+								" being typed
 
 set autoindent					" Turns indent (tabs) on
 set noexpandtab					" Don't turn spaces into an tab
 set tabstop=4					" How many columns a tab is
-" made out of
+								" made out of
 set shiftwidth=4				" How many columns text will be
-" indented when using indent
-" operations (such as < or >)
+								" indented when using indent
+								" operations (such as < or >)
 
 set hidden						"
 
@@ -81,7 +81,7 @@ set listchars=tab:\ \ ,trail:·	" Show trailing whitespace
 autocmd BufRead,BufNewFile ~/work/* setlocal expandtab tabstop=2 shiftwidth=2
 
 set splitbelow splitright		" New splits are below or to
-" the right
+								" the right
 autocmd VimResized * wincmd =	" Auto resize windows
 
 set backspace=indent,eol,start	" Fix backspace button
@@ -90,10 +90,10 @@ let mapleader=","				" Map leader
 let maplocalleader="_"			" Map local leader
 
 set updatetime=100				" How many milliseconds before
-" the swap file will be
-" written to disk if nothing
-" is typed. (Used for updating
-" vim-gitgutter faster)
+								" the swap file will be
+								" written to disk if nothing
+								" is typed. (Used for updating
+								" vim-gitgutter faster)
 
 set colorcolumn=80				" Set 80 column limit
 
