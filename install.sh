@@ -33,7 +33,8 @@ PACKAGES_LIST=(
 "exuberant-ctags"
 "lacheck"
 "peek"
-"python-pip"
+#"python-pip"
+"python-dev-is-python2"
 "python3-pip"
 "suckless-tools"
 "xdotool"
@@ -42,20 +43,21 @@ PACKAGES_LIST=(
 "zathura-djvu"
 "zathura-pdf-poppler"
 "zathura-ps"
-"clamav"
-"clamav-daemon"
-"clamav-freshclam"
+#"clamav"
+#"clamav-daemon"
+#"clamav-freshclam"
 "libncurses5-dev"	# Packages to compile vim
-"libgnome2-dev"
-"libgnomeui-dev"
+#"libgnome2-dev"
+#"libgnomeui-dev"
 "libgtk2.0-dev"
 "libatk1.0-dev"
-"libbonoboui2-dev"
+#"libbonoboui2-dev"
 "libcairo2-dev"
 "libx11-dev"
 "libxpm-dev"
 "libxt-dev"
-"liblua5.1-dev"		# lua dev for vim (https://github.com/Shougo/neocomplete.vim/issues/31)
+#"liblua5.1-dev"	# lua dev for vim (https://github.com/Shougo/neocomplete.vim/issues/31)
+"liblua5.1-0-dev"
 "libperl-dev"		# perl dev for vim
 "tcl-dev"			# tcl dev for vim
 "python-dev"
@@ -130,6 +132,7 @@ sudo apt-get install $TEMP_LIST
 
 # Hack to get lua to work with vim on debian
 echo -e "${COLOR_GREEN}Hack to get lua to work with vim on debian${COLOR_RESET}"
+sudo mkdir -p /usr/include/lua5.1/include/
 sudo cp -r /usr/include/lua5.1/* /usr/include/lua5.1/include/
 sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.1.so /usr/local/lib/liblua.so
 
