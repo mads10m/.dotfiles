@@ -29,6 +29,8 @@ DOTFILES_LIST=(
 
 # List of packages (apt-get)
 PACKAGES_LIST=(
+"cmake"
+"htop"
 "chktex"
 "exuberant-ctags"
 "lacheck"
