@@ -47,6 +47,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
+" R
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+
 " Markdown
 Plug 'shime/vim-livedown'
 
