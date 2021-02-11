@@ -52,7 +52,16 @@ Plug 'maxmellon/vim-jsx-pretty'
 
 " Latex
 Plug 'lervag/vimtex'
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
+" R
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+
+" Markdown
+Plug 'shime/vim-livedown'
+
+" Vim config
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 " }}}
 " Basic settings {{{
@@ -183,6 +192,9 @@ function! MyLatex()
 	map <C-m> <plug>(vimtex-toc-open)
 	"inoremap <expr> <cr> CheckIfList() ? '<cr>\item ' : '<cr>'
 	"inoremap <C-f> <C-o>:call NewInkscape(getline("."))<cr>
+	set conceallevel=1
+	let g:tex_conceal='abdmg'
+	hi Conceal ctermbg=none
 endfunction
 " }}}
 " }}}
@@ -215,7 +227,7 @@ colorscheme onedark
 "let g:airline#extensions#tabline#enabled = 1	" Enabel buffer details
 "let g:airline#extensions#tabline#buffer_nr_show = 0
 "let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#enabled = 1		" Enable enhanced tabline
+"let g:airline#extensions#tabline#enabled = 1		" Enable enhanced tabline
 let g:airline#extensions#tabline#formatter = 'default'
 "let g:airline#extensions#tabline#tab_nr_type = 1	" Display tab number
 "let g:airline#extensions#tabline#show_tab_nr = 1	" Display number of tabs
@@ -237,9 +249,9 @@ let g:ale_fixers = {
 			\	'javascript': ['eslint'],
 			\	'typescript': ['tsserver'],
 			\}
-let g:ale_open_list = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'normal'
+let g:ale_open_list = 0						" Only lint on save and inset leave
+let g:ale_lint_on_text_changed = 'never'	" (stopping ALE from
+let g:ale_lint_on_save = 1					" fucking up ultisnips)
 let g:ale_lint_on_insert_leave = 1
 let g:ale_close_preview_on_insert = 1
 let g:ale_echo_cursor = 0					" Echos errors when cursor is near a warning/error
@@ -255,7 +267,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_complete_in_comments = 1
 "let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_use_ultisnips_completer = 1
+let g:ycm_use_ultisnips_completer = 0
 " }}}
 " Ultisnips {{{
 
@@ -297,7 +309,10 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_general_viewer = 'zathura'
 let g:tex_flavor = 'latex'
 let g:vimtex_quickfix_mode=0
-"set conceallevel=1
-"let g:tex_conceal='abdmg'
+
+" }}}
+" livedown {{{
+let g:livedown_autorun = 1
+let g:livedown_open = 1
 " }}}
 " }}}
