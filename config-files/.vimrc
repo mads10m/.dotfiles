@@ -52,9 +52,10 @@ Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 
 " Markdown
 Plug 'shime/vim-livedown'
+Plug 'dhruvasagar/vim-table-mode'
 
 " Vim config
-Plug 'editorconfig/editorconfig-vim'
+"Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 " }}}
 " Basic settings {{{
@@ -260,7 +261,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_complete_in_comments = 1
 "let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_use_ultisnips_completer = 0
+let g:ycm_use_ultisnips_completer = 1
 " }}}
 " Ultisnips {{{
 
@@ -305,7 +306,10 @@ let g:vimtex_quickfix_mode=0
 
 " }}}
 " livedown {{{
-let g:livedown_autorun = 1
+" should markdown preview get shown automatically upon opening markdown buffer
+let g:livedown_autorun = 0
+
+" should the browser window pop-up upon previewing
 let g:livedown_open = 1
 " }}}
 " }}}
