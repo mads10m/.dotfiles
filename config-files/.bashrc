@@ -25,13 +25,19 @@ if [[ ! $PATH = *$SCRIPT_DIR* ]]; then
 	export PATH=$PATH:$HOME/.scripts
 fi
 
-# test if android srydio is in PATH, if it is not then ut adds it
+# test if android studios is in PATH, if it is not then adds it
 if [[ ! $PATH = *$HOME/Android/Sdk* ]]; then
 	export ANDROID_HOME=$HOME/Android/Sdk
 fi
 if [[ ! $PATH = *$ANDROID_HOME/tools* ]]; then
 	export PATH=$PATH:$ANDROID_HOME/tools
 fi
+
+# test if /dotnet is in PATH, if it is not then it adds it
+if [[ ! $PATH = *$HOME/dotnet* ]]; then
+	export PATH=$PATH:$HOME/dotnet
+fi
+export DOTNET_ROOT=$HOME/dotnet
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -168,6 +174,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Deno
+export DENO_INSTALL="/home/mads10m/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # enable fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_OPTS="--height 40% --extended --border"
@@ -179,3 +189,4 @@ export FZF_DEFAULT_OPTS="--height 40% --extended --border"
 
 # disable dotnet telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+. "$HOME/.cargo/env"
