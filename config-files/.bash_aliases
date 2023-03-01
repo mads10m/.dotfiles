@@ -1,1 +1,1 @@
-#alias python="/usr/bin/python3.7"
+alias vim="nvim"
