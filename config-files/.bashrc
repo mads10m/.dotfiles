@@ -19,6 +19,9 @@ shopt -s histappend
 HISTSIZE=1000		# How many lines is saved
 HISTFILESIZE=2000	# How many lines there can be in the history file
 
+# After each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 # test if .scripts is in PATH, if it is not then it adds it
 SCRIPT_DIR="$HOME/.scripts"
 if [[ ! $PATH = *$SCRIPT_DIR* ]]; then
